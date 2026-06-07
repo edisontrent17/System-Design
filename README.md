@@ -18,8 +18,10 @@ The serving API should not compute top-k rankings from raw events. It should rea
 
 ```text
 Playback Events
+  -> Raw Durable Stream / Lake
+  -> Candidate Compaction
   -> Validation / Deduplication / Fraud Filtering
-  -> Kafka or PubSub
+  -> Kafka or PubSub Topics
   -> Sliding Window Aggregation
   -> Shard-Local Top-K
   -> Global Top-K Merge
@@ -30,7 +32,26 @@ Playback Events
 
 ## Ranking Contract
 
-Counts are exact for processed, validated events up to the published watermark. Raw playback starts, valid views, and public counters are intentionally different concepts.
+Hot rankings use bucket-aligned sliding windows. Counts are exact for processed, validated events inside full buckets up to the published watermark.
+
+```text
+rankQuality = exact_bucketed
+window = [bucket_aligned_start, bucket_aligned_end)
+bucketSize = explicit in every response
+watermark = all accepted events with event_time <= watermark are included
+```
+
+Raw playback starts, view candidates, valid views, public counters, and correction events are intentionally different concepts.
+
+## Critical Design Corrections
+
+- Raw events are durably written before destructive filtering.
+- Component 3 receives compacted view candidates or watch segments, not every heartbeat.
+- Event-id dedupe is not enough; view-credit and watch-segment dedupe are required.
+- Component 3 uses idempotent/outbox publishing so dedupe cannot swallow events after a failed publish.
+- Fraud and policy corrections are first-class streams and can emit negative ranking deltas.
+- Hot-key salting must be combined by `videoId` before final top-k ranking.
+- Component 4 topics and retention are explicit.
 
 Initial implementation direction:
 
