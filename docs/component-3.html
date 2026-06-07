@@ -20,6 +20,7 @@
     }
 
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -35,10 +36,7 @@
       border-bottom: 4px solid var(--red);
     }
 
-    .wrap {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-    }
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
 
     nav {
       display: flex;
@@ -50,21 +48,10 @@
       font-size: 0.95rem;
     }
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-    }
+    nav a { color: #fff; text-decoration: none; font-weight: 700; }
 
     .hero { padding: 42px 0 42px; }
-
-    .eyebrow {
-      color: #ffd7d7;
-      font-size: 0.84rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
+    .eyebrow { color: #ffd7d7; font-size: 0.84rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0; }
 
     h1 {
       max-width: 980px;
@@ -74,12 +61,7 @@
       letter-spacing: 0;
     }
 
-    .lead {
-      max-width: 940px;
-      margin: 0;
-      color: #d5d9e2;
-      font-size: 1.12rem;
-    }
+    .lead { max-width: 940px; margin: 0; color: #d5d9e2; font-size: 1.12rem; }
 
     .hero-grid {
       display: grid;
@@ -96,45 +78,15 @@
       background: rgba(255, 255, 255, 0.06);
     }
 
-    .fact strong {
-      display: block;
-      margin-bottom: 5px;
-      color: #fff;
-      font-size: 1.04rem;
-    }
+    .fact strong { display: block; margin-bottom: 5px; color: #fff; font-size: 1.04rem; }
+    .fact span { display: block; color: #c8ced9; font-size: 0.9rem; }
 
-    .fact span {
-      display: block;
-      color: #c8ced9;
-      font-size: 0.9rem;
-    }
-
-    main section {
-      padding: 54px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
+    main section { padding: 54px 0; border-bottom: 1px solid var(--line); }
     section.alt { background: #fff; }
 
-    h2 {
-      margin: 0 0 10px;
-      font-size: clamp(1.65rem, 3vw, 2.45rem);
-      line-height: 1.16;
-      letter-spacing: 0;
-    }
-
-    h3 {
-      margin: 0 0 8px;
-      font-size: 1.04rem;
-      letter-spacing: 0;
-    }
-
-    .section-lead {
-      max-width: 940px;
-      margin: 0 0 26px;
-      color: var(--muted);
-      font-size: 1.02rem;
-    }
+    h2 { margin: 0 0 10px; font-size: clamp(1.65rem, 3vw, 2.45rem); line-height: 1.16; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1.04rem; letter-spacing: 0; }
+    .section-lead { max-width: 940px; margin: 0 0 26px; color: var(--muted); font-size: 1.02rem; }
 
     .diagram-shell {
       overflow-x: auto;
@@ -156,18 +108,8 @@
       text-transform: uppercase;
     }
 
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--red);
-      flex: 0 0 auto;
-    }
-
-    .mermaid {
-      min-width: 980px;
-      text-align: center;
-    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex: 0 0 auto; }
+    .mermaid { min-width: 980px; text-align: center; }
 
     .grid { display: grid; gap: 16px; }
     .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -181,11 +123,7 @@
       box-shadow: 0 6px 18px rgba(17, 24, 39, 0.04);
     }
 
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
+    .card p { margin: 0; color: var(--muted); font-size: 0.94rem; }
 
     .tag {
       display: inline-flex;
@@ -223,26 +161,23 @@
       font-size: 0.94rem;
     }
 
-    th {
-      background: #eef3f8;
-      color: #344054;
-      font-weight: 800;
-    }
-
+    th { background: #eef3f8; color: #344054; font-weight: 800; }
     tr:last-child td { border-bottom: 0; }
 
     code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
 
-    pre.api {
+    pre.code, pre.api {
       margin: 0;
       overflow-x: auto;
       padding: 18px;
       border-radius: 8px;
       background: #101828;
       color: #eef2ff;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       line-height: 1.55;
     }
+
+    .code-caption { margin: 0 0 8px; color: #344054; font-weight: 800; }
 
     .callout {
       padding: 16px 18px;
@@ -253,12 +188,7 @@
     }
 
     .callout strong { display: block; margin-bottom: 6px; }
-
-    footer {
-      padding: 28px 0 40px;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
+    footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.92rem; }
 
     @media (max-width: 880px) {
       .hero-grid, .grid.two, .grid.three { grid-template-columns: 1fr; }
@@ -340,8 +270,8 @@ flowchart LR
   policy <--> policyStore
 
   router -->|trusted ranking signal| valid
-  router -->|bad/malformed| rejected
-  router -->|uncertain/risky| suspicious
+  router -->|bad or malformed| rejected
+  router -->|uncertain or risky| suspicious
   router -->|too late for hot window| late
 
   classDef c3Node fill:#eff6ff,stroke:#1d4ed8,color:#111827
@@ -387,7 +317,7 @@ flowchart TD
   auth -- no --> suspicious
   auth -- yes --> clock
   clock -- too old --> backfill
-  clock -- future/bad --> reject
+  clock -- future or bad --> reject
   clock -- acceptable --> dup
   dup -- yes --> reject
   dup -- no --> view
@@ -413,7 +343,253 @@ flowchart TD
 
     <section>
       <div class="wrap">
-        <h2>3. State And Hot-Node Strategy</h2>
+        <h2>3. Java 21 Implementation Sketch</h2>
+        <p class="section-lead">
+          This is the production-shaped code boundary for Component 3. The first implementation can
+          keep the stores in-memory for tests, but the interfaces map directly to Redis/Valkey,
+          session state, policy metadata, and Kafka producers.
+        </p>
+        <div class="grid two">
+          <div>
+            <p class="code-caption">Event models and decisions</p>
+            <pre class="code"><code>package com.systemdesign.youtube.topk.validation;
+
+import java.time.Instant;
+import java.util.Map;
+
+public record RawWatchEvent(
+    String eventId,
+    String videoId,
+    String sessionId,
+    String userId,
+    Instant eventTime,
+    Instant ingestTime,
+    long watchMs,
+    String country,
+    String device,
+    Map&lt;String, String&gt; attributes
+) {}
+
+public record ValidViewEvent(
+    String eventId,
+    String videoId,
+    Instant eventTime,
+    String country,
+    long validViews,
+    long watchTimeMs,
+    String validationVersion,
+    String fraudDecision
+) {}
+
+public enum DecisionType {
+  ACCEPT,
+  REJECT,
+  QUARANTINE,
+  BACKFILL
+}
+
+public record ValidationDecision(
+    DecisionType type,
+    String reason,
+    ValidViewEvent validEvent
+) {
+  static ValidationDecision accept(ValidViewEvent event) {
+    return new ValidationDecision(DecisionType.ACCEPT, "accepted", event);
+  }
+
+  static ValidationDecision reject(String reason) {
+    return new ValidationDecision(DecisionType.REJECT, reason, null);
+  }
+
+  static ValidationDecision quarantine(String reason) {
+    return new ValidationDecision(DecisionType.QUARANTINE, reason, null);
+  }
+
+  static ValidationDecision backfill(String reason) {
+    return new ValidationDecision(DecisionType.BACKFILL, reason, null);
+  }
+}</code></pre>
+          </div>
+          <div>
+            <p class="code-caption">External dependencies as interfaces</p>
+            <pre class="code"><code>package com.systemdesign.youtube.topk.validation;
+
+import java.time.Duration;
+
+public interface DedupeStore {
+  /** Returns true only when the key was newly inserted. */
+  boolean putIfAbsent(String key, Duration ttl);
+}
+
+public interface SessionTrustStore {
+  SessionTrust lookup(String sessionId, String userId);
+}
+
+public interface FraudFilter {
+  FraudDecision evaluate(RawWatchEvent event);
+}
+
+public interface PolicyStore {
+  VideoPolicy lookupVideoPolicy(String videoId);
+}
+
+public interface ValidationPublisher {
+  void publishValid(ValidViewEvent event);
+  void publishRejected(RawWatchEvent event, String reason);
+  void publishSuspicious(RawWatchEvent event, String reason);
+  void publishLate(RawWatchEvent event, String reason);
+}
+
+public record SessionTrust(boolean trusted, String reason) {}
+public record FraudDecision(boolean allowed, String reason) {}
+public record VideoPolicy(boolean rankable, String reason) {}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap">
+        <h2>4. Component 3 Processor Code</h2>
+        <p class="section-lead">
+          The processor is intentionally boring: validate in order, fail closed for hot rankings,
+          and publish exactly one outcome stream per raw event. Heavy fraud review and correction
+          happen asynchronously.
+        </p>
+        <pre class="code"><code>package com.systemdesign.youtube.topk.validation;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Set;
+
+public final class Component3Validator {
+  private static final String VALIDATION_VERSION = "valid-view-v1";
+  private static final Duration EVENT_DEDUPE_TTL = Duration.ofMinutes(30);
+  private static final Duration MAX_FUTURE_SKEW = Duration.ofSeconds(30);
+  private static final Duration HOT_PATH_ALLOWED_LATENESS = Duration.ofMinutes(10);
+  private static final Duration BACKFILL_ALLOWED_LATENESS = Duration.ofHours(24);
+  private static final long MIN_VALID_WATCH_MS = 30_000;
+  private static final Set&lt;String&gt; ALLOWED_DEVICES = Set.of("web", "mobile", "tv", "embed");
+
+  private final DedupeStore dedupeStore;
+  private final SessionTrustStore sessionTrustStore;
+  private final FraudFilter fraudFilter;
+  private final PolicyStore policyStore;
+  private final ValidationPublisher publisher;
+
+  public Component3Validator(
+      DedupeStore dedupeStore,
+      SessionTrustStore sessionTrustStore,
+      FraudFilter fraudFilter,
+      PolicyStore policyStore,
+      ValidationPublisher publisher
+  ) {
+    this.dedupeStore = dedupeStore;
+    this.sessionTrustStore = sessionTrustStore;
+    this.fraudFilter = fraudFilter;
+    this.policyStore = policyStore;
+    this.publisher = publisher;
+  }
+
+  public ValidationDecision validateAndPublish(RawWatchEvent event, Instant now) {
+    ValidationDecision decision = validate(event, now);
+
+    switch (decision.type()) {
+      case ACCEPT -&gt; publisher.publishValid(decision.validEvent());
+      case REJECT -&gt; publisher.publishRejected(event, decision.reason());
+      case QUARANTINE -&gt; publisher.publishSuspicious(event, decision.reason());
+      case BACKFILL -&gt; publisher.publishLate(event, decision.reason());
+    }
+
+    return decision;
+  }
+
+  public ValidationDecision validate(RawWatchEvent event, Instant now) {
+    ValidationDecision schema = validateSchema(event);
+    if (schema.type() != DecisionType.ACCEPT) return schema;
+
+    ValidationDecision time = validateEventTime(event, now);
+    if (time.type() != DecisionType.ACCEPT) return time;
+
+    SessionTrust trust = sessionTrustStore.lookup(event.sessionId(), event.userId());
+    if (!trust.trusted()) {
+      return ValidationDecision.quarantine("untrusted_session:" + trust.reason());
+    }
+
+    String dedupeKey = "dedupe:event:" + event.eventId();
+    boolean firstSeen = dedupeStore.putIfAbsent(dedupeKey, EVENT_DEDUPE_TTL);
+    if (!firstSeen) {
+      return ValidationDecision.reject("duplicate_event");
+    }
+
+    if (event.watchMs() &lt; MIN_VALID_WATCH_MS) {
+      return ValidationDecision.reject("watch_too_short");
+    }
+
+    FraudDecision fraud = fraudFilter.evaluate(event);
+    if (!fraud.allowed()) {
+      return ValidationDecision.quarantine("fraud_risk:" + fraud.reason());
+    }
+
+    VideoPolicy policy = policyStore.lookupVideoPolicy(event.videoId());
+    if (!policy.rankable()) {
+      return ValidationDecision.reject("not_rankable:" + policy.reason());
+    }
+
+    ValidViewEvent valid = new ValidViewEvent(
+        event.eventId(),
+        event.videoId(),
+        event.eventTime(),
+        event.country(),
+        1L,
+        event.watchMs(),
+        VALIDATION_VERSION,
+        fraud.reason()
+    );
+
+    return ValidationDecision.accept(valid);
+  }
+
+  private ValidationDecision validateSchema(RawWatchEvent event) {
+    if (event == null) return ValidationDecision.reject("null_event");
+    if (isBlank(event.eventId())) return ValidationDecision.reject("missing_event_id");
+    if (isBlank(event.videoId())) return ValidationDecision.reject("missing_video_id");
+    if (isBlank(event.sessionId())) return ValidationDecision.reject("missing_session_id");
+    if (event.eventTime() == null) return ValidationDecision.reject("missing_event_time");
+    if (event.ingestTime() == null) return ValidationDecision.reject("missing_ingest_time");
+    if (event.watchMs() &lt; 0) return ValidationDecision.reject("negative_watch_ms");
+    if (isBlank(event.country())) return ValidationDecision.reject("missing_country");
+    if (!ALLOWED_DEVICES.contains(event.device())) return ValidationDecision.reject("invalid_device");
+    return ValidationDecision.accept(null);
+  }
+
+  private ValidationDecision validateEventTime(RawWatchEvent event, Instant now) {
+    if (event.eventTime().isAfter(now.plus(MAX_FUTURE_SKEW))) {
+      return ValidationDecision.reject("event_time_too_far_in_future");
+    }
+
+    Duration lateness = Duration.between(event.eventTime(), now);
+    if (lateness.compareTo(BACKFILL_ALLOWED_LATENESS) &gt; 0) {
+      return ValidationDecision.reject("event_too_old");
+    }
+
+    if (lateness.compareTo(HOT_PATH_ALLOWED_LATENESS) &gt; 0) {
+      return ValidationDecision.backfill("late_for_hot_ranking");
+    }
+
+    return ValidationDecision.accept(null);
+  }
+
+  private static boolean isBlank(String value) {
+    return value == null || value.isBlank();
+  }
+}</code></pre>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>5. State And Hot-Node Strategy</h2>
         <p class="section-lead">
           Event-id dedupe distributes well because event IDs are random. Hot-node risk comes from
           low-cardinality or viral keys such as IP, video ID, country, and creator. Component 3
@@ -447,8 +623,8 @@ flowchart LR
   workerN --> localN
 
   localA -->|miss: SET eventId NX EX| shard1
-  localB -->|miss: hash(eventId)| shard2
-  localN -->|miss: hash(eventId)| shardN
+  localB -->|miss: hash eventId| shard2
+  localN -->|miss: hash eventId| shardN
 
   workerA --> session
   workerB --> session
@@ -475,7 +651,103 @@ flowchart LR
 
     <section class="alt">
       <div class="wrap">
-        <h2>4. Failure Behavior</h2>
+        <h2>6. Estimates For Component 3</h2>
+        <p class="section-lead">
+          These estimates use budget-conscious assumptions: Java workers at 8 vCPU / 32 GB,
+          roughly 10k safe events/sec per worker, 30-minute event-id dedupe TTL, and local worker
+          dedupe before Redis/Valkey. Numbers are planning targets, not benchmark results.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Target Tier</th>
+              <th>Peak Raw EPS</th>
+              <th>Workers</th>
+              <th>Event Dedupe Keys</th>
+              <th>Primary Cache</th>
+              <th>Valid Output</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MVP production</td>
+              <td>25k/sec</td>
+              <td>4-6</td>
+              <td>45M keys at 30m TTL</td>
+              <td>10-30 GB</td>
+              <td>15k-20k/sec</td>
+              <td>Single region or two small active regions; simple rules first.</td>
+            </tr>
+            <tr>
+              <td>Serious V1</td>
+              <td>100k/sec</td>
+              <td>15-25</td>
+              <td>180M keys at 30m TTL</td>
+              <td>60-150 GB</td>
+              <td>60k-80k/sec</td>
+              <td>Regional Redis/Valkey, local Caffeine dedupe, separate rejected streams.</td>
+            </tr>
+            <tr>
+              <td>Large scale</td>
+              <td>1M/sec</td>
+              <td>130-180</td>
+              <td>1.8B keys at 30m TTL</td>
+              <td>600 GB-1.5 TB</td>
+              <td>600k-800k/sec</td>
+              <td>50-100 cache shards; hot-key salting for abuse counters; no per-video writes.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="height:18px"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Per-Event Operation</th>
+              <th>Hot Path Cost</th>
+              <th>Expected Storage/Network</th>
+              <th>Scaling Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Schema/time checks</td>
+              <td>CPU only</td>
+              <td>No external storage</td>
+              <td>Keep deterministic and allocation-light.</td>
+            </tr>
+            <tr>
+              <td>Session trust lookup</td>
+              <td>0-1 cache lookup</td>
+              <td>Short local cache, fallback remote state</td>
+              <td>Fail to quarantine if trust cannot be proven.</td>
+            </tr>
+            <tr>
+              <td>Event dedupe</td>
+              <td>Local cache then SET NX EX</td>
+              <td>About 150-250 bytes/key after cache overhead</td>
+              <td>Short TTL, regional sharding, optional probabilistic filters.</td>
+            </tr>
+            <tr>
+              <td>Fraud/rate rules</td>
+              <td>Mostly local rules, salted counters for hot keys</td>
+              <td>Abuse counters use shorter TTL than event dedupe</td>
+              <td>Do not run heavy ML inference synchronously.</td>
+            </tr>
+            <tr>
+              <td>Produce output stream</td>
+              <td>1 publish per raw event outcome</td>
+              <td>Valid event roughly 250-400 bytes with binary encoding</td>
+              <td>Backpressure when Component 4 is unavailable.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>7. Failure Behavior</h2>
         <p class="section-lead">
           The failure policy is conservative: if we cannot trust the event, it should not affect
           hot rankings. Some failures degrade to cached/simple rules; others quarantine or reject.
@@ -490,77 +762,20 @@ flowchart LR
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Schema validator</td>
-              <td>Bad schema or parser bug</td>
-              <td>Reject malformed events; canary rollback on rate shift</td>
-              <td>Dead-letter queue and schema version audit</td>
-            </tr>
-            <tr>
-              <td>Auth/session validator</td>
-              <td>Session store unavailable</td>
-              <td>Use short local cache; otherwise quarantine</td>
-              <td>Replay quarantined events if trust can be proven</td>
-            </tr>
-            <tr>
-              <td>Deduplicator</td>
-              <td>Redis shard hot or unavailable</td>
-              <td>Use local dedupe fallback; uncertain events quarantine</td>
-              <td>Scale shards, shorten TTL, or enable probabilistic filter</td>
-            </tr>
-            <tr>
-              <td>Fraud filter</td>
-              <td>Rules/model unavailable</td>
-              <td>Fall back to simple rules; quarantine high-risk traffic</td>
-              <td>Async review and correction snapshots</td>
-            </tr>
-            <tr>
-              <td>Policy gate</td>
-              <td>Policy metadata unavailable</td>
-              <td>Use cached policy; unknown videos do not rank</td>
-              <td>Refresh metadata and replay if needed</td>
-            </tr>
-            <tr>
-              <td>Valid-event producer</td>
-              <td>Component 4 unavailable</td>
-              <td>Backpressure intake; bounded buffering only</td>
-              <td>Do not silently drop accepted valid events</td>
-            </tr>
+            <tr><td>Schema validator</td><td>Bad schema or parser bug</td><td>Reject malformed events; canary rollback on rate shift</td><td>Dead-letter queue and schema version audit</td></tr>
+            <tr><td>Auth/session validator</td><td>Session store unavailable</td><td>Use short local cache; otherwise quarantine</td><td>Replay quarantined events if trust can be proven</td></tr>
+            <tr><td>Deduplicator</td><td>Redis shard hot or unavailable</td><td>Use local dedupe fallback; uncertain events quarantine</td><td>Scale shards, shorten TTL, or enable probabilistic filter</td></tr>
+            <tr><td>Fraud filter</td><td>Rules/model unavailable</td><td>Fall back to simple rules; quarantine high-risk traffic</td><td>Async review and correction snapshots</td></tr>
+            <tr><td>Policy gate</td><td>Policy metadata unavailable</td><td>Use cached policy; unknown videos do not rank</td><td>Refresh metadata and replay if needed</td></tr>
+            <tr><td>Valid-event producer</td><td>Component 4 unavailable</td><td>Backpressure intake; bounded buffering only</td><td>Do not silently drop accepted valid events</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <section>
-      <div class="wrap">
-        <h2>5. Capacity Model For Component 3</h2>
-        <p class="section-lead">
-          These are practical planning numbers for a budget-conscious global design. They should be
-          validated with load tests once implementation begins.
-        </p>
-        <div class="grid three">
-          <article class="card">
-            <span class="tag">MVP Production</span>
-            <h3>25k peak events/sec</h3>
-            <p>4-6 Java workers, one regional cache cluster, simple rules, local dedupe, and 30-minute event-id TTL.</p>
-          </article>
-          <article class="card">
-            <span class="tag green">Serious V1</span>
-            <h3>100k peak events/sec</h3>
-            <p>15-25 workers globally, regional Redis/Valkey, local dedupe first, abuse counter salting, and separate audit streams.</p>
-          </article>
-          <article class="card">
-            <span class="tag amber">Large Scale</span>
-            <h3>1M peak events/sec</h3>
-            <p>130-180 workers globally, 50-100 cache shards depending on TTL, aggressive hot-key detection, and no per-video writes here.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="alt">
       <div class="wrap">
-        <h2>6. Event Contracts</h2>
+        <h2>8. Event Contracts</h2>
         <p class="section-lead">
           Component 3 narrows many noisy playback events into a small set of explicit outputs for
           Component 4 and audit paths.
@@ -596,11 +811,7 @@ flowchart LR
     </section>
   </main>
 
-  <footer>
-    <div class="wrap">
-      Component 3 visualization for the YouTube Sliding Top-K architecture.
-    </div>
-  </footer>
+  <footer><div class="wrap">Component 3 visualization for the YouTube Sliding Top-K architecture.</div></footer>
 
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
@@ -620,12 +831,7 @@ flowchart LR
         clusterBorder: "#cbd5e1",
         edgeLabelBackground: "#ffffff"
       },
-      flowchart: {
-        curve: "basis",
-        htmlLabels: true,
-        nodeSpacing: 50,
-        rankSpacing: 58
-      }
+      flowchart: { curve: "basis", htmlLabels: true, nodeSpacing: 50, rankSpacing: 58 }
     });
   </script>
 </body>
