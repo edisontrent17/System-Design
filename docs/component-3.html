@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Component 3: Validation, Deduplication, Fraud Filter</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --ink: #111827;
+      --muted: #5f6b7a;
+      --line: #d7dde8;
+      --panel: #ffffff;
+      --red: #c81e1e;
+      --blue: #1d4ed8;
+      --green: #047857;
+      --amber: #b45309;
+      --purple: #6d28d9;
+      --shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #111827;
+      color: #fff;
+      border-bottom: 4px solid var(--red);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 18px 0 0;
+      color: #d5d9e2;
+      font-size: 0.95rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .hero { padding: 42px 0 42px; }
+
+    .eyebrow {
+      color: #ffd7d7;
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 980px;
+      margin: 12px 0 16px;
+      font-size: clamp(2.15rem, 5vw, 4.6rem);
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 940px;
+      margin: 0;
+      color: #d5d9e2;
+      font-size: 1.12rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .fact {
+      min-height: 112px;
+      padding: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .fact strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #fff;
+      font-size: 1.04rem;
+    }
+
+    .fact span {
+      display: block;
+      color: #c8ced9;
+      font-size: 0.9rem;
+    }
+
+    main section {
+      padding: 54px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section.alt { background: #fff; }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.65rem, 3vw, 2.45rem);
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.04rem;
+      letter-spacing: 0;
+    }
+
+    .section-lead {
+      max-width: 940px;
+      margin: 0 0 26px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .diagram-shell {
+      overflow-x: auto;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .diagram-title {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+      color: #344054;
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--red);
+      flex: 0 0 auto;
+    }
+
+    .mermaid {
+      min-width: 980px;
+      text-align: center;
+    }
+
+    .grid { display: grid; gap: 16px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.04);
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      margin-bottom: 10px;
+      padding: 0 9px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--blue);
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .tag.red { background: var(--red); }
+    .tag.green { background: var(--green); }
+    .tag.amber { background: var(--amber); }
+    .tag.purple { background: var(--purple); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.04);
+    }
+
+    th, td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.94rem;
+    }
+
+    th {
+      background: #eef3f8;
+      color: #344054;
+      font-weight: 800;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+
+    pre.api {
+      margin: 0;
+      overflow-x: auto;
+      padding: 18px;
+      border-radius: 8px;
+      background: #101828;
+      color: #eef2ff;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .callout {
+      padding: 16px 18px;
+      border-left: 5px solid var(--red);
+      border-radius: 8px;
+      background: #fff5f5;
+      color: #4b1d1d;
+    }
+
+    .callout strong { display: block; margin-bottom: 6px; }
+
+    footer {
+      padding: 28px 0 40px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 880px) {
+      .hero-grid, .grid.two, .grid.three { grid-template-columns: 1fr; }
+      main section { padding: 42px 0; }
+      nav { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="./">YouTube Top-K Architecture</a>
+        <span>Component 3: trust boundary for ranking signals</span>
+      </nav>
+      <div class="hero">
+        <div class="eyebrow">Component 3</div>
+        <h1>Validation, Deduplication, Fraud Filter</h1>
+        <p class="lead">
+          Component 3 converts untrusted raw playback activity into trusted ranking signals.
+          It decides whether an event can affect hot top-k rankings, whether it should be rejected,
+          or whether it should be quarantined for later review.
+        </p>
+        <div class="hero-grid">
+          <div class="fact"><strong>Input</strong><span>RawWatchEvent from the event gateway.</span></div>
+          <div class="fact"><strong>Decision</strong><span>Accept, reject, quarantine, or route to backfill.</span></div>
+          <div class="fact"><strong>Output</strong><span>ValidViewEvent into Component 4.</span></div>
+          <div class="fact"><strong>Default</strong><span>If trust is uncertain, do not affect hot rankings.</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <h2>1. High-Level System Interactions</h2>
+        <p class="section-lead">
+          Component 3 sits between the gateway and the durable event stream. It uses short-lived
+          state stores and metadata services, then emits separate streams for valid, rejected,
+          suspicious, and late events.
+        </p>
+        <div class="diagram-shell">
+          <div class="diagram-title"><span class="dot"></span>Where Component 3 Sits</div>
+          <pre class="mermaid">
+flowchart LR
+  clients[Playback Clients]
+  gateway[Component 2: Watch Event Gateway]
+
+  subgraph c3[Component 3: Validation / Dedup / Fraud]
+    schema[Schema Validator]
+    identity[Auth + Session Validator]
+    time[Event-Time Validator]
+    dedupe[Deduplicator]
+    view[Valid-View Classifier]
+    fraud[Fraud + Rate Filter]
+    policy[Policy Gate]
+    router[Decision Router]
+  end
+
+  subgraph state[Hot State + Reference Data]
+    dedupeCache[(Dedup TTL Cache)]
+    sessionStore[(Session State)]
+    abuseStore[(Abuse Counters)]
+    policyStore[(Video Policy Cache)]
+  end
+
+  subgraph c4[Component 4: Event Stream]
+    valid[(valid.view_events)]
+    rejected[(rejected.watch_events)]
+    suspicious[(suspicious.watch_events)]
+    late[(late.backfill_events)]
+  end
+
+  clients --> gateway --> schema --> identity --> time --> dedupe --> view --> fraud --> policy --> router
+  dedupe <--> dedupeCache
+  identity <--> sessionStore
+  fraud <--> abuseStore
+  policy <--> policyStore
+
+  router -->|trusted ranking signal| valid
+  router -->|bad/malformed| rejected
+  router -->|uncertain/risky| suspicious
+  router -->|too late for hot window| late
+
+  classDef c3Node fill:#eff6ff,stroke:#1d4ed8,color:#111827
+  classDef stateNode fill:#ecfdf5,stroke:#047857,color:#111827
+  classDef streamNode fill:#f5f3ff,stroke:#6d28d9,color:#111827
+  classDef edgeNode fill:#fff7ed,stroke:#b45309,color:#111827
+  class schema,identity,time,dedupe,view,fraud,policy,router c3Node
+  class dedupeCache,sessionStore,abuseStore,policyStore stateNode
+  class valid,rejected,suspicious,late streamNode
+  class clients,gateway edgeNode
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap">
+        <h2>2. Internal Node Pipeline</h2>
+        <p class="section-lead">
+          These are the concrete nodes inside Component 3. Each node has a narrow responsibility
+          so we can measure, scale, and fail it independently.
+        </p>
+        <div class="diagram-shell">
+          <div class="diagram-title"><span class="dot"></span>Internal Nodes And Decisions</div>
+          <pre class="mermaid">
+flowchart TD
+  raw[RawWatchEvent]
+  schema{Schema valid?}
+  auth{Client/session trusted?}
+  clock{Event time usable?}
+  dup{Duplicate?}
+  view{Counts as valid view?}
+  fraud{Fraud risk acceptable?}
+  policy{Video rankable?}
+  accept[Emit ValidViewEvent]
+  reject[Emit RejectedWatchEvent]
+  suspicious[Emit SuspiciousWatchEvent]
+  backfill[Emit LateBackfillEvent]
+
+  raw --> schema
+  schema -- no --> reject
+  schema -- yes --> auth
+  auth -- no --> suspicious
+  auth -- yes --> clock
+  clock -- too old --> backfill
+  clock -- future/bad --> reject
+  clock -- acceptable --> dup
+  dup -- yes --> reject
+  dup -- no --> view
+  view -- no --> reject
+  view -- yes --> fraud
+  fraud -- high risk --> suspicious
+  fraud -- acceptable --> policy
+  policy -- no --> reject
+  policy -- yes --> accept
+
+  classDef ok fill:#ecfdf5,stroke:#047857,color:#111827
+  classDef bad fill:#fff5f5,stroke:#c81e1e,color:#111827
+  classDef warn fill:#fff7ed,stroke:#b45309,color:#111827
+  classDef node fill:#eff6ff,stroke:#1d4ed8,color:#111827
+  class raw,schema,auth,clock,dup,view,fraud,policy node
+  class accept ok
+  class reject bad
+  class suspicious,backfill warn
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>3. State And Hot-Node Strategy</h2>
+        <p class="section-lead">
+          Event-id dedupe distributes well because event IDs are random. Hot-node risk comes from
+          low-cardinality or viral keys such as IP, video ID, country, and creator. Component 3
+          avoids direct per-video counter writes and salts hot abuse counters.
+        </p>
+        <div class="diagram-shell">
+          <div class="diagram-title"><span class="dot"></span>State Stores And Sharding</div>
+          <pre class="mermaid">
+flowchart LR
+  workerA[Validation Worker A]
+  workerB[Validation Worker B]
+  workerN[Validation Worker N]
+
+  localA[(Local Caffeine Cache)]
+  localB[(Local Caffeine Cache)]
+  localN[(Local Caffeine Cache)]
+
+  subgraph redis[Regional Redis / Valkey Cluster]
+    shard1[(Shard 1)]
+    shard2[(Shard 2)]
+    shard3[(Shard 3)]
+    shardN[(Shard N)]
+  end
+
+  policy[(Policy Metadata Cache)]
+  session[(Session State Store)]
+  valid[(valid.view_events)]
+
+  workerA --> localA
+  workerB --> localB
+  workerN --> localN
+
+  localA -->|miss: SET eventId NX EX| shard1
+  localB -->|miss: hash(eventId)| shard2
+  localN -->|miss: hash(eventId)| shardN
+
+  workerA --> session
+  workerB --> session
+  workerN --> session
+
+  workerA --> policy
+  workerB --> policy
+  workerN --> policy
+
+  workerA -->|no video counters here| valid
+  workerB -->|emit signal only| valid
+  workerN -->|aggregation is downstream| valid
+
+  classDef worker fill:#eff6ff,stroke:#1d4ed8,color:#111827
+  classDef store fill:#ecfdf5,stroke:#047857,color:#111827
+  classDef stream fill:#f5f3ff,stroke:#6d28d9,color:#111827
+  class workerA,workerB,workerN worker
+  class localA,localB,localN,shard1,shard2,shard3,shardN,policy,session store
+  class valid stream
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap">
+        <h2>4. Failure Behavior</h2>
+        <p class="section-lead">
+          The failure policy is conservative: if we cannot trust the event, it should not affect
+          hot rankings. Some failures degrade to cached/simple rules; others quarantine or reject.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Node</th>
+              <th>Failure</th>
+              <th>Hot Ranking Behavior</th>
+              <th>Follow-Up</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Schema validator</td>
+              <td>Bad schema or parser bug</td>
+              <td>Reject malformed events; canary rollback on rate shift</td>
+              <td>Dead-letter queue and schema version audit</td>
+            </tr>
+            <tr>
+              <td>Auth/session validator</td>
+              <td>Session store unavailable</td>
+              <td>Use short local cache; otherwise quarantine</td>
+              <td>Replay quarantined events if trust can be proven</td>
+            </tr>
+            <tr>
+              <td>Deduplicator</td>
+              <td>Redis shard hot or unavailable</td>
+              <td>Use local dedupe fallback; uncertain events quarantine</td>
+              <td>Scale shards, shorten TTL, or enable probabilistic filter</td>
+            </tr>
+            <tr>
+              <td>Fraud filter</td>
+              <td>Rules/model unavailable</td>
+              <td>Fall back to simple rules; quarantine high-risk traffic</td>
+              <td>Async review and correction snapshots</td>
+            </tr>
+            <tr>
+              <td>Policy gate</td>
+              <td>Policy metadata unavailable</td>
+              <td>Use cached policy; unknown videos do not rank</td>
+              <td>Refresh metadata and replay if needed</td>
+            </tr>
+            <tr>
+              <td>Valid-event producer</td>
+              <td>Component 4 unavailable</td>
+              <td>Backpressure intake; bounded buffering only</td>
+              <td>Do not silently drop accepted valid events</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>5. Capacity Model For Component 3</h2>
+        <p class="section-lead">
+          These are practical planning numbers for a budget-conscious global design. They should be
+          validated with load tests once implementation begins.
+        </p>
+        <div class="grid three">
+          <article class="card">
+            <span class="tag">MVP Production</span>
+            <h3>25k peak events/sec</h3>
+            <p>4-6 Java workers, one regional cache cluster, simple rules, local dedupe, and 30-minute event-id TTL.</p>
+          </article>
+          <article class="card">
+            <span class="tag green">Serious V1</span>
+            <h3>100k peak events/sec</h3>
+            <p>15-25 workers globally, regional Redis/Valkey, local dedupe first, abuse counter salting, and separate audit streams.</p>
+          </article>
+          <article class="card">
+            <span class="tag amber">Large Scale</span>
+            <h3>1M peak events/sec</h3>
+            <p>130-180 workers globally, 50-100 cache shards depending on TTL, aggressive hot-key detection, and no per-video writes here.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap">
+        <h2>6. Event Contracts</h2>
+        <p class="section-lead">
+          Component 3 narrows many noisy playback events into a small set of explicit outputs for
+          Component 4 and audit paths.
+        </p>
+        <div class="grid two">
+          <pre class="api"><code>Input: RawWatchEvent
+{
+  "eventId": "evt_123",
+  "videoId": "abc123",
+  "sessionId": "s_789",
+  "userId": "u_456",
+  "eventTime": "2026-06-07T12:00:00Z",
+  "ingestTime": "2026-06-07T12:00:02Z",
+  "watchMs": 42000,
+  "country": "US",
+  "device": "mobile"
+}</code></pre>
+          <pre class="api"><code>Output: ValidViewEvent
+{
+  "eventId": "evt_123",
+  "videoId": "abc123",
+  "eventTime": "2026-06-07T12:00:00Z",
+  "country": "US",
+  "metrics": {
+    "validViews": 1,
+    "watchTimeMs": 42000
+  },
+  "validationVersion": "valid-view-v1",
+  "fraudDecision": "allow"
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      Component 3 visualization for the YouTube Sliding Top-K architecture.
+    </div>
+  </footer>
+
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({
+      startOnLoad: true,
+      securityLevel: "loose",
+      theme: "base",
+      themeVariables: {
+        fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
+        primaryColor: "#eff6ff",
+        primaryBorderColor: "#1d4ed8",
+        primaryTextColor: "#111827",
+        lineColor: "#667085",
+        secondaryColor: "#ecfdf5",
+        tertiaryColor: "#fff7ed",
+        clusterBkg: "#f8fafc",
+        clusterBorder: "#cbd5e1",
+        edgeLabelBackground: "#ffffff"
+      },
+      flowchart: {
+        curve: "basis",
+        htmlLabels: true,
+        nodeSpacing: 50,
+        rankSpacing: 58
+      }
+    });
+  </script>
+</body>
+</html>
