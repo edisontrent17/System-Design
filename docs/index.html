@@ -6,18 +6,22 @@
   <title>YouTube Sliding Top-K Architecture</title>
   <style>
     :root {
-      --bg: #f7f8fb;
-      --ink: #17202a;
-      --muted: #667085;
-      --line: #d8dde8;
+      --bg: #f6f8fb;
+      --ink: #111827;
+      --muted: #5f6b7a;
+      --line: #d7dde8;
       --panel: #ffffff;
+      --panel-soft: #eef3f8;
       --red: #c81e1e;
-      --blue: #2563eb;
-      --green: #087f5b;
+      --blue: #1d4ed8;
+      --green: #047857;
       --amber: #b45309;
-      --violet: #6d28d9;
+      --purple: #6d28d9;
+      --shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       background: var(--bg);
@@ -25,62 +29,232 @@
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.5;
     }
+
     header {
       background: #111827;
       color: #fff;
       border-bottom: 4px solid var(--red);
     }
-    .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
-    .hero {
-      min-height: 52vh;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(340px, .95fr);
-      gap: 32px;
-      align-items: center;
-      padding: 44px 0 34px;
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
     }
-    .eyebrow { color: #ffd7d7; font-weight: 800; text-transform: uppercase; font-size: .84rem; }
-    h1 { margin: 12px 0 14px; font-size: clamp(2.1rem, 5vw, 4.7rem); line-height: 1.02; letter-spacing: 0; }
-    .lead { max-width: 760px; color: #d6d9e0; font-size: 1.08rem; }
-    .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 26px; }
-    .fact { border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); border-radius: 8px; padding: 14px; min-height: 88px; }
-    .fact strong { display: block; color: #fff; margin-bottom: 4px; font-size: 1.08rem; }
-    .fact span { color: #c6cad3; font-size: .9rem; }
-    .panel { background: #fff; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 12px 34px rgba(22,34,51,.08); padding: 18px; }
-    .flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-    .node { border: 1px solid var(--line); border-left: 5px solid var(--blue); border-radius: 8px; padding: 14px; min-height: 76px; background: #fff; }
-    .node.red { border-left-color: var(--red); }
-    .node.green { border-left-color: var(--green); }
-    .node.amber { border-left-color: var(--amber); }
-    .node.violet { border-left-color: var(--violet); }
-    .node strong { display: block; font-size: .98rem; margin-bottom: 3px; }
-    .node span { color: var(--muted); font-size: .86rem; }
-    main section { padding: 52px 0; border-bottom: 1px solid var(--line); }
+
+    .hero { padding: 52px 0 44px; }
+
+    .eyebrow {
+      color: #ffd7d7;
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 940px;
+      margin: 12px 0 16px;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 900px;
+      margin: 0;
+      color: #d5d9e2;
+      font-size: 1.12rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .fact {
+      min-height: 108px;
+      padding: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .fact strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #fff;
+      font-size: 1.04rem;
+    }
+
+    .fact span {
+      display: block;
+      color: #c8ced9;
+      font-size: 0.9rem;
+    }
+
+    main section {
+      padding: 54px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
     section.alt { background: #fff; }
-    h2 { margin: 0 0 10px; font-size: clamp(1.65rem, 3vw, 2.35rem); line-height: 1.15; letter-spacing: 0; }
-    .section-lead { margin: 0 0 26px; max-width: 880px; color: var(--muted); font-size: 1.02rem; }
-    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 18px; }
-    .card h3 { margin: 0 0 8px; font-size: 1.02rem; }
-    .card p { margin: 0; color: var(--muted); font-size: .94rem; }
-    .tag { display: inline-flex; height: 24px; align-items: center; border-radius: 999px; padding: 0 9px; color: #fff; font-size: .75rem; font-weight: 800; margin-bottom: 10px; background: var(--blue); }
-    .tag.red { background: var(--red); } .tag.green { background: var(--green); } .tag.amber { background: var(--amber); } .tag.violet { background: var(--violet); }
-    .diagram { overflow-x: auto; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 18px; box-shadow: 0 12px 34px rgba(22,34,51,.08); }
-    .lanes { min-width: 960px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-    .lane { background: #f0f4f8; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px; }
-    .lane h3 { margin: 0 0 14px; font-size: .92rem; color: #344054; text-transform: uppercase; }
-    .lane .node { margin-bottom: 10px; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-    th, td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: .94rem; }
-    th { background: #f0f4f8; color: #344054; }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.65rem, 3vw, 2.45rem);
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.04rem;
+      letter-spacing: 0;
+    }
+
+    .section-lead {
+      max-width: 920px;
+      margin: 0 0 26px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .diagram-shell {
+      overflow-x: auto;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .diagram-title {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+      color: #344054;
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--red);
+      flex: 0 0 auto;
+    }
+
+    .mermaid {
+      min-width: 980px;
+      text-align: center;
+    }
+
+    .grid { display: grid; gap: 16px; }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.04);
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      margin-bottom: 10px;
+      padding: 0 9px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--blue);
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .tag.red { background: var(--red); }
+    .tag.green { background: var(--green); }
+    .tag.amber { background: var(--amber); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.04);
+    }
+
+    th, td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.94rem;
+    }
+
+    th {
+      background: var(--panel-soft);
+      color: #344054;
+      font-weight: 800;
+    }
+
     tr:last-child td { border-bottom: 0; }
-    .split { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 18px; align-items: start; }
-    pre { margin: 0; background: #101828; color: #eef2ff; border-radius: 8px; padding: 18px; overflow-x: auto; font: .9rem/1.55 "SFMono-Regular", Consolas, monospace; }
-    .callout { border-left: 5px solid var(--red); background: #fff5f5; border-radius: 8px; padding: 16px 18px; color: #4b1d1d; }
-    footer { padding: 28px 0 40px; color: var(--muted); font-size: .92rem; }
-    @media (max-width: 860px) {
-      .hero, .split, .grid { grid-template-columns: 1fr; }
-      .facts, .flow { grid-template-columns: 1fr; }
+
+    pre, code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+
+    pre.api {
+      margin: 0;
+      overflow-x: auto;
+      padding: 18px;
+      border-radius: 8px;
+      background: #101828;
+      color: #eef2ff;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .callout {
+      padding: 16px 18px;
+      border-left: 5px solid var(--red);
+      border-radius: 8px;
+      background: #fff5f5;
+      color: #4b1d1d;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 880px) {
+      .hero-grid, .grid.three, .split { grid-template-columns: 1fr; }
       main section { padding: 42px 0; }
     }
   </style>
@@ -88,26 +262,18 @@
 <body>
   <header>
     <div class="wrap hero">
-      <div>
-        <div class="eyebrow">Production Architecture</div>
-        <h1>YouTube Sliding Top-K Rankings</h1>
-        <p class="lead">A first-party ranking pipeline for top watched videos over sliding windows. The API reads materialized snapshots; raw watch events never sit on the request path.</p>
-        <div class="facts">
-          <div class="fact"><strong>Sliding windows</strong><span>5m, 1h, 24h, and 7d windows backed by event-time buckets.</span></div>
-          <div class="fact"><strong>Validated views</strong><span>Rankings consume accepted events, not raw playback starts.</span></div>
-          <div class="fact"><strong>Snapshots</strong><span>Serving reads Redis or a durable snapshot store.</span></div>
-          <div class="fact"><strong>Watermarks</strong><span>Counts are exact for processed validated events up to the watermark.</span></div>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="flow" aria-label="Compact architecture flow">
-          <div class="node red"><strong>Watch Events</strong><span>Playback clients emit raw events.</span></div>
-          <div class="node amber"><strong>Validation</strong><span>Dedupe, fraud, and valid-view rules.</span></div>
-          <div class="node"><strong>Kafka</strong><span>Partitioned durable event stream.</span></div>
-          <div class="node green"><strong>Aggregate</strong><span>Sliding counters per scope and video.</span></div>
-          <div class="node violet"><strong>Top-K Merge</strong><span>Shard candidates become global ranks.</span></div>
-          <div class="node red"><strong>API</strong><span>Read-only snapshot serving path.</span></div>
-        </div>
+      <div class="eyebrow">Production Architecture</div>
+      <h1>YouTube Sliding Top-K Rankings</h1>
+      <p class="lead">
+        A first-party ranking system for top watched videos over sliding windows.
+        The API does not compute top-k from raw events. It reads materialized ranking snapshots
+        produced by a streaming pipeline.
+      </p>
+      <div class="hero-grid">
+        <div class="fact"><strong>Sliding Windows</strong><span>5m, 1h, 24h, and 7d windows with event-time bucket state.</span></div>
+        <div class="fact"><strong>Validated Views</strong><span>Rankings use accepted view events, not raw playback starts.</span></div>
+        <div class="fact"><strong>Precomputed Top-K</strong><span>Shard-local candidate lists merge into global snapshots.</span></div>
+        <div class="fact"><strong>Watermarked Output</strong><span>Exact for processed validated events up to the watermark.</span></div>
       </div>
     </div>
   </header>
@@ -115,91 +281,289 @@
   <main>
     <section>
       <div class="wrap">
-        <h2>System Architecture</h2>
-        <p class="section-lead">The write path continuously converts validated playback into ranking snapshots. The read path resolves a registered ranking and returns an already-built result.</p>
-        <div class="diagram">
-          <div class="lanes" aria-label="Detailed production architecture diagram">
-            <div class="lane">
-              <h3>Clients</h3>
-              <div class="node red"><strong>Playback clients</strong><span>Emit watch events with event time, session, video, region, and device.</span></div>
-              <div class="node"><strong>API consumers</strong><span>Request registered top-k rankings.</span></div>
-            </div>
-            <div class="lane">
-              <h3>Ingestion</h3>
-              <div class="node amber"><strong>Event gateway</strong><span>Auth, schema validation, and envelope checks.</span></div>
-              <div class="node amber"><strong>Deduplication</strong><span>Suppress duplicate event ids and replayed sessions.</span></div>
-              <div class="node amber"><strong>Fraud filter</strong><span>Drop low-quality or automated playbacks.</span></div>
-            </div>
-            <div class="lane">
-              <h3>Streaming Core</h3>
-              <div class="node"><strong>Kafka / PubSub</strong><span>Durable partitioned log.</span></div>
-              <div class="node"><strong>Normalizer</strong><span>Enrich with category, country, and ranking dimensions.</span></div>
-              <div class="node green"><strong>Window aggregator</strong><span>Ring-buffer counters for sliding windows.</span></div>
-            </div>
-            <div class="lane">
-              <h3>Ranking</h3>
-              <div class="node green"><strong>Local top-k</strong><span>Each shard emits an internal top 1000.</span></div>
-              <div class="node violet"><strong>Global merger</strong><span>Merge candidates and apply deterministic tie-breaking.</span></div>
-              <div class="node violet"><strong>Snapshot writer</strong><span>Write asOf, watermark, formula version, and rank quality.</span></div>
-            </div>
-            <div class="lane">
-              <h3>Serving + Storage</h3>
-              <div class="node red"><strong>Redis / edge</strong><span>Hot ranking snapshots.</span></div>
-              <div class="node red"><strong>Top-K API</strong><span>Resolve ranking definition and hydrate metadata.</span></div>
-              <div class="node"><strong>Raw lake + OLAP</strong><span>Replay, backfill, audits, and quality checks.</span></div>
-            </div>
-          </div>
+        <h2>1. End-To-End Architecture</h2>
+        <p class="section-lead">The major boundary is between the write path, which continuously builds rankings, and the read path, which only serves snapshots.</p>
+        <div class="diagram-shell">
+          <div class="diagram-title"><span class="dot"></span>System Context And Data Ownership</div>
+          <pre class="mermaid">
+flowchart LR
+  playback[Playback Clients]
+  consumers[API Consumers]
+
+  subgraph ingestion[Ingestion Boundary]
+    gateway[Watch Event Gateway]
+    auth[Schema + Auth Validation]
+    dedupe[Event Deduplication]
+    fraud[Bot / Fraud Filter]
+  end
+
+  subgraph stream[Streaming Boundary]
+    kafka[(Kafka / PubSub)]
+    normalize[Normalizer + Enricher]
+    aggregate[Sliding Window Aggregator]
+    localTopK[Shard-Local Top-K]
+    globalMerge[Global Top-K Merger]
+  end
+
+  subgraph stores[Storage Boundary]
+    rawLake[(Raw Event Lake)]
+    metricState[(Metric State Store)]
+    snapshots[(Ranking Snapshot Store)]
+    cache[(Redis / Edge Cache)]
+    metadata[(Video Metadata Store)]
+    olap[(OLAP / Backfill Store)]
+  end
+
+  subgraph serving[Serving Boundary]
+    registry[Ranking Definition Registry]
+    api[Top-K API]
+  end
+
+  playback --> gateway --> auth --> dedupe --> fraud --> kafka
+  kafka --> rawLake
+  kafka --> normalize --> aggregate
+  aggregate --> metricState
+  aggregate --> localTopK --> globalMerge
+  globalMerge --> snapshots
+  globalMerge --> cache
+  globalMerge --> olap
+
+  consumers --> api
+  api --> registry
+  api --> cache
+  api --> snapshots
+  api --> metadata
+
+  classDef client fill:#fff7ed,stroke:#b45309,color:#111827
+  classDef hot fill:#eff6ff,stroke:#1d4ed8,color:#111827
+  classDef store fill:#ecfdf5,stroke:#047857,color:#111827
+  classDef rank fill:#f5f3ff,stroke:#6d28d9,color:#111827
+  class playback,consumers client
+  class kafka,normalize,aggregate hot
+  class rawLake,metricState,snapshots,cache,metadata,olap store
+  class localTopK,globalMerge,api rank
+          </pre>
         </div>
       </div>
     </section>
 
     <section class="alt">
       <div class="wrap">
-        <h2>Sliding Window Strategy</h2>
-        <p class="section-lead">Use micro-bucketed sliding windows. This gives bounded error, predictable memory, fast expiry, and a clean path to event-time watermarks and correction snapshots.</p>
-        <table>
-          <thead><tr><th>Window</th><th>Bucket Size</th><th>Active Buckets</th><th>Publish Cadence</th></tr></thead>
-          <tbody>
-            <tr><td>5 minutes</td><td>5 or 10 seconds</td><td>30 to 60</td><td>Every 5 to 10 seconds</td></tr>
-            <tr><td>1 hour</td><td>30 or 60 seconds</td><td>60 to 120</td><td>Every 30 to 60 seconds</td></tr>
-            <tr><td>24 hours</td><td>5 minutes</td><td>288</td><td>Every 5 minutes</td></tr>
-            <tr><td>7 days</td><td>1 hour</td><td>168</td><td>Every 15 to 60 minutes</td></tr>
-          </tbody>
-        </table>
+        <h2>2. Write Path: Event To Snapshot</h2>
+        <p class="section-lead">Every view must pass validation before it can change a ranking. The ranker publishes snapshots on a cadence, not on every event.</p>
+        <div class="diagram-shell">
+          <div class="diagram-title"><span class="dot"></span>Streaming Write Path</div>
+          <pre class="mermaid">
+sequenceDiagram
+  autonumber
+  participant Client as Playback Client
+  participant Gateway as Event Gateway
+  participant Validator as Validation/Dedupe/Fraud
+  participant Log as Kafka/PubSub
+  participant Agg as Window Aggregator
+  participant Ranker as Local Top-K Ranker
+  participant Merger as Global Merger
+  participant Store as Snapshot Store
+  participant Cache as Redis/Edge Cache
+
+  Client->>Gateway: WatchEvent(videoId, user/session, eventTime, watchMs)
+  Gateway->>Validator: Validate envelope and identity
+  Validator->>Validator: Deduplicate + classify valid view
+  Validator->>Log: ValidViewEvent
+  Log->>Agg: Partitioned by ranking shard
+  Agg->>Agg: Assign event-time bucket
+  Agg->>Agg: Update rolling window counters
+  Agg->>Ranker: Updated video score
+  Ranker->>Ranker: Rebuild local candidate top N
+  Ranker->>Merger: Local top 1000 per ranking definition
+  Merger->>Merger: Merge candidates + tie-break
+  Merger->>Store: Durable RankingSnapshot(asOf, watermark)
+  Merger->>Cache: Hot snapshot for API reads
+          </pre>
+        </div>
       </div>
     </section>
 
     <section>
       <div class="wrap">
-        <h2>Top-K Computation</h2>
-        <p class="section-lead">Scores rise when new events arrive and fall when buckets expire. The ranker keeps score state separate from candidate state and periodically rebuilds candidates.</p>
-        <div class="grid">
-          <article class="card"><span class="tag">1</span><h3>Shard-local state</h3><p>Each shard owns a subset of videos and tracks rolling scores for registered scopes such as global and country.</p></article>
-          <article class="card"><span class="tag green">2</span><h3>Candidate top-k</h3><p>Each shard emits an internal top 1000 for a public top 100 to keep global merges stable.</p></article>
-          <article class="card"><span class="tag amber">3</span><h3>Global merge</h3><p>The merger combines only shard candidates, applies deterministic tie-breaking, and writes a versioned snapshot.</p></article>
+        <h2>3. Read Path: Snapshot Serving</h2>
+        <p class="section-lead">The request path is deliberately small. It resolves the ranking definition, reads a cached snapshot, hydrates video metadata, and returns freshness information.</p>
+        <div class="diagram-shell">
+          <div class="diagram-title"><span class="dot"></span>Low-Latency Read Path</div>
+          <pre class="mermaid">
+flowchart LR
+  client[API Consumer]
+  api[Top-K API]
+  registry[Ranking Definition Registry]
+  cache[(Redis / Edge Cache)]
+  snapshots[(Ranking Snapshot Store)]
+  metadata[(Video Metadata Store)]
+  response[Ranked Response]
+
+  client -->|GET /v1/top-videos| api
+  api -->|validate scope/window/metric| registry
+  api -->|hot key lookup| cache
+  cache -->|cache miss| snapshots
+  api -->|hydrate titles/channels/thumbnails| metadata
+  api --> response
+  response -->|asOf + watermark + rankQuality| client
+
+  classDef apiClass fill:#f5f3ff,stroke:#6d28d9,color:#111827
+  classDef store fill:#ecfdf5,stroke:#047857,color:#111827
+  classDef clientClass fill:#fff7ed,stroke:#b45309,color:#111827
+  class api,registry,response apiClass
+  class cache,snapshots,metadata store
+  class client clientClass
+          </pre>
         </div>
       </div>
     </section>
 
     <section class="alt">
+      <div class="wrap">
+        <h2>4. Sliding Window Top-K Internals</h2>
+        <p class="section-lead">Sliding windows are maintained as event-time buckets. Scores can increase when new events arrive and decrease when buckets expire, so top-k state needs periodic rebuilds or lazy invalidation rather than a simple append-only heap.</p>
+        <div class="diagram-shell">
+          <div class="diagram-title"><span class="dot"></span>Per-Shard Sliding Window State And Global Merge</div>
+          <pre class="mermaid">
+flowchart TB
+  event[ValidViewEvent]
+  bucketizer[Event-Time Bucketizer]
+
+  subgraph shardA[Shard A]
+    a1[Ring Buffers: video -> buckets]
+    a2[Score Map: video -> rolling score]
+    a3[Local Candidate Set: top 1000]
+  end
+
+  subgraph shardB[Shard B]
+    b1[Ring Buffers: video -> buckets]
+    b2[Score Map: video -> rolling score]
+    b3[Local Candidate Set: top 1000]
+  end
+
+  subgraph shardN[Shard N]
+    n1[Ring Buffers: video -> buckets]
+    n2[Score Map: video -> rolling score]
+    n3[Local Candidate Set: top 1000]
+  end
+
+  merger[Global Top-K Merger]
+  final[Final Top K Snapshot]
+  cache[(Redis / Edge Cache)]
+
+  event --> bucketizer
+  bucketizer -->|hash videoId / scope| a1
+  bucketizer -->|hash videoId / scope| b1
+  bucketizer -->|hash videoId / scope| n1
+  a1 --> a2 --> a3
+  b1 --> b2 --> b3
+  n1 --> n2 --> n3
+  a3 --> merger
+  b3 --> merger
+  n3 --> merger
+  merger --> final --> cache
+
+  classDef shard fill:#eff6ff,stroke:#1d4ed8,color:#111827
+  classDef rank fill:#f5f3ff,stroke:#6d28d9,color:#111827
+  classDef store fill:#ecfdf5,stroke:#047857,color:#111827
+  class a1,a2,a3,b1,b2,b3,n1,n2,n3 shard
+  class merger,final rank
+  class cache store
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>5. Registered Windows And Accuracy Contract</h2>
+        <p class="section-lead">We should support a controlled set of windows in the hot serving API. Arbitrary exploratory windows belong in OLAP, not in the low-latency ranking path.</p>
+        <table>
+          <thead><tr><th>Window</th><th>Bucket Size</th><th>Active Buckets</th><th>Publish Cadence</th><th>Typical Use</th></tr></thead>
+          <tbody>
+            <tr><td>5 minutes</td><td>5 or 10 seconds</td><td>30 to 60</td><td>5 to 10 seconds</td><td>Live velocity</td></tr>
+            <tr><td>1 hour</td><td>30 or 60 seconds</td><td>60 to 120</td><td>30 to 60 seconds</td><td>Trending now</td></tr>
+            <tr><td>24 hours</td><td>5 minutes</td><td>288</td><td>5 minutes</td><td>Daily top watched</td></tr>
+            <tr><td>7 days</td><td>1 hour</td><td>168</td><td>15 to 60 minutes</td><td>Weekly leaders</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap">
+        <h2>6. Deployment View</h2>
+        <p class="section-lead">Production deployment separates ingest capacity, stream processing, durable storage, and API serving so each can scale independently.</p>
+        <div class="diagram-shell">
+          <div class="diagram-title"><span class="dot"></span>Production Deployment Boundaries</div>
+          <pre class="mermaid">
+flowchart LR
+  subgraph edge[Edge / API Region]
+    lb[Load Balancer]
+    topApi[Top-K API Fleet]
+    edgeCache[(Edge Cache)]
+  end
+
+  subgraph ingest[Ingestion Region]
+    eventGw[Event Gateway Fleet]
+    validator[Validation Workers]
+    kafka[(Kafka / PubSub Cluster)]
+  end
+
+  subgraph processing[Stream Processing Cluster]
+    flink[Flink / Beam Jobs]
+    rankers[Top-K Ranker Tasks]
+    merger[Global Merger Tasks]
+  end
+
+  subgraph data[Data Stores]
+    raw[(Raw Event Lake)]
+    state[(Metric State Store)]
+    snap[(Snapshot Store)]
+    meta[(Video Metadata)]
+    olap[(OLAP / Backfill)]
+  end
+
+  lb --> topApi --> edgeCache
+  topApi --> snap
+  topApi --> meta
+  eventGw --> validator --> kafka
+  kafka --> raw
+  kafka --> flink --> state
+  flink --> rankers --> merger --> snap
+  merger --> edgeCache
+  merger --> olap
+
+  classDef compute fill:#eff6ff,stroke:#1d4ed8,color:#111827
+  classDef store fill:#ecfdf5,stroke:#047857,color:#111827
+  class lb,topApi,eventGw,validator,flink,rankers,merger compute
+  class edgeCache,kafka,raw,state,snap,meta,olap store
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
       <div class="wrap split">
         <div>
-          <h2>API Contract</h2>
-          <p class="section-lead">The API explains what the ranking means. The count is exact for accepted events processed up to the watermark, not a claim about every raw playback in the world at this instant.</p>
-          <div class="callout"><strong>Principal decision</strong><br>The serving API does not compute rankings. It resolves a registered ranking definition, reads a snapshot, hydrates metadata, and returns freshness metadata.</div>
+          <h2>7. API Contract</h2>
+          <p class="section-lead">The API response must state the ranking definition, window, bucket size, watermark, and quality. That prevents consumers from confusing raw playbacks, validated views, and public counters.</p>
+          <div class="callout"><strong>Principal engineering decision</strong>The serving API never scans raw events. It reads a materialized ranking snapshot and returns freshness metadata.</div>
         </div>
-        <pre><code>GET /v1/top-videos
+        <pre class="api"><code>GET /v1/top-videos
   ?scope=country:US
   &window=1h
   &metric=valid_views
   &k=100
 
 {
+  "rankingDefinition": "youtube.country.valid_views.1h.v1",
   "scope": "country:US",
   "window": "1h",
   "bucketSize": "60s",
   "metric": "valid_views",
-  "rankQuality": "exact_for_processed_events",
+  "rankQuality": "exact_for_processed_validated_events",
   "asOf": "2026-06-07T12:00:00Z",
   "watermark": "2026-06-07T11:58:30Z",
   "items": [
@@ -209,19 +573,51 @@
       </div>
     </section>
 
-    <section>
+    <section class="alt">
       <div class="wrap">
-        <h2>Production Boundaries</h2>
-        <p class="section-lead">The Java implementation should keep these as interfaces even if the first adapters are local or in-memory.</p>
-        <div class="grid">
-          <article class="card"><span class="tag red">Input</span><h3>Watch events</h3><p>Schema validation, auth, event id dedupe, low-quality playback suppression, and late-event handling.</p></article>
-          <article class="card"><span class="tag green">State</span><h3>Rolling counters</h3><p>Ring-buffer counters keyed by scope, metric, window, and video with event-time bucket assignment.</p></article>
-          <article class="card"><span class="tag violet">Output</span><h3>Ranking snapshots</h3><p>Durable snapshots with score version, asOf, watermark, rank quality, and deterministic ordering.</p></article>
+        <h2>8. Implementation Boundaries</h2>
+        <p class="section-lead">The Java implementation should use these as module/interface boundaries even if the first version uses local adapters before Kafka, Flink, Redis, and durable stores.</p>
+        <div class="grid three">
+          <article class="card"><span class="tag red">Input</span><h3>Watch Event Ingestion</h3><p>Schema validation, auth, duplicate event suppression, low-quality playback filtering, and late-event policy.</p></article>
+          <article class="card"><span class="tag">State</span><h3>Sliding Window Aggregation</h3><p>Event-time bucket assignment, rolling score maps, watermark tracking, and bucket expiration.</p></article>
+          <article class="card"><span class="tag green">Ranking</span><h3>Top-K Snapshotting</h3><p>Shard-local candidate sets, global merge, deterministic tie-breaking, snapshot versioning, and cache publication.</p></article>
         </div>
       </div>
     </section>
   </main>
 
-  <footer><div class="wrap">YouTube Sliding Top-K Architecture. Static GitHub Pages artifact for the production Java design discussion.</div></footer>
+  <footer><div class="wrap">YouTube Sliding Top-K Architecture. Static GitHub Pages artifact for the production Java design.</div></footer>
+
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({
+      startOnLoad: true,
+      securityLevel: "loose",
+      theme: "base",
+      themeVariables: {
+        fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
+        primaryColor: "#eff6ff",
+        primaryBorderColor: "#1d4ed8",
+        primaryTextColor: "#111827",
+        lineColor: "#667085",
+        secondaryColor: "#ecfdf5",
+        tertiaryColor: "#fff7ed",
+        clusterBkg: "#f8fafc",
+        clusterBorder: "#cbd5e1",
+        edgeLabelBackground: "#ffffff"
+      },
+      flowchart: {
+        curve: "basis",
+        htmlLabels: true,
+        nodeSpacing: 48,
+        rankSpacing: 58
+      },
+      sequence: {
+        mirrorActors: false,
+        actorMargin: 64,
+        boxMargin: 12
+      }
+    });
+  </script>
 </body>
 </html>
