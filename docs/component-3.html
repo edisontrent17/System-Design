@@ -11,6 +11,7 @@
       --muted: #5f6b7a;
       --line: #d7dde8;
       --panel: #ffffff;
+      --soft: #eef3f8;
       --red: #c81e1e;
       --blue: #1d4ed8;
       --green: #047857;
@@ -18,205 +19,66 @@
       --purple: #6d28d9;
       --shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
     }
-
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.5;
-    }
-
-    header {
-      background: #111827;
-      color: #fff;
-      border-bottom: 4px solid var(--red);
-    }
-
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.5; }
+    header { background: #111827; color: #fff; border-bottom: 4px solid var(--red); }
     .wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: center;
-      padding: 18px 0 0;
-      color: #d5d9e2;
-      font-size: 0.95rem;
-    }
-
+    nav { display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 18px 0 0; color: #d5d9e2; font-size: .95rem; }
     nav a { color: #fff; text-decoration: none; font-weight: 700; }
-
     .hero { padding: 42px 0 42px; }
-    .eyebrow { color: #ffd7d7; font-size: 0.84rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0; }
-
-    h1 {
-      max-width: 980px;
-      margin: 12px 0 16px;
-      font-size: clamp(2.15rem, 5vw, 4.6rem);
-      line-height: 1.03;
-      letter-spacing: 0;
-    }
-
-    .lead { max-width: 940px; margin: 0; color: #d5d9e2; font-size: 1.12rem; }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 30px;
-    }
-
-    .fact {
-      min-height: 112px;
-      padding: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.06);
-    }
-
+    .eyebrow { color: #ffd7d7; font-size: .84rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0; }
+    h1 { max-width: 980px; margin: 12px 0 16px; font-size: clamp(2.15rem, 5vw, 4.6rem); line-height: 1.03; letter-spacing: 0; }
+    .lead { max-width: 960px; margin: 0; color: #d5d9e2; font-size: 1.12rem; }
+    .hero-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 30px; }
+    .fact { min-height: 112px; padding: 15px; border: 1px solid rgba(255,255,255,.16); border-radius: 8px; background: rgba(255,255,255,.06); }
     .fact strong { display: block; margin-bottom: 5px; color: #fff; font-size: 1.04rem; }
-    .fact span { display: block; color: #c8ced9; font-size: 0.9rem; }
-
+    .fact span { display: block; color: #c8ced9; font-size: .9rem; }
     main section { padding: 54px 0; border-bottom: 1px solid var(--line); }
     section.alt { background: #fff; }
-
     h2 { margin: 0 0 10px; font-size: clamp(1.65rem, 3vw, 2.45rem); line-height: 1.16; letter-spacing: 0; }
     h3 { margin: 0 0 8px; font-size: 1.04rem; letter-spacing: 0; }
-    .section-lead { max-width: 940px; margin: 0 0 26px; color: var(--muted); font-size: 1.02rem; }
-
-    .diagram-shell {
-      overflow-x: auto;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
-      box-shadow: var(--shadow);
-    }
-
-    .diagram-title {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 14px;
-      color: #344054;
-      font-size: 0.92rem;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
+    .section-lead { max-width: 960px; margin: 0 0 26px; color: var(--muted); font-size: 1.02rem; }
+    .diagram-shell { overflow-x: auto; padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); box-shadow: var(--shadow); }
+    .diagram-title { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; color: #344054; font-size: .92rem; font-weight: 800; text-transform: uppercase; }
     .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex: 0 0 auto; }
     .mermaid { min-width: 980px; text-align: center; }
-
     .grid { display: grid; gap: 16px; }
     .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-    .card {
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
-      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.04);
-    }
-
-    .card p { margin: 0; color: var(--muted); font-size: 0.94rem; }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      height: 24px;
-      margin-bottom: 10px;
-      padding: 0 9px;
-      border-radius: 999px;
-      color: #fff;
-      background: var(--blue);
-      font-size: 0.75rem;
-      font-weight: 800;
-    }
-
-    .tag.red { background: var(--red); }
-    .tag.green { background: var(--green); }
-    .tag.amber { background: var(--amber); }
-    .tag.purple { background: var(--purple); }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.04);
-    }
-
-    th, td {
-      padding: 13px 14px;
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
-      font-size: 0.94rem;
-    }
-
-    th { background: #eef3f8; color: #344054; font-weight: 800; }
+    .card { padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); box-shadow: 0 6px 18px rgba(17,24,39,.04); }
+    .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+    .tag { display: inline-flex; align-items: center; height: 24px; margin-bottom: 10px; padding: 0 9px; border-radius: 999px; color: #fff; background: var(--blue); font-size: .75rem; font-weight: 800; }
+    .tag.red { background: var(--red); } .tag.green { background: var(--green); } .tag.amber { background: var(--amber); } .tag.purple { background: var(--purple); }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #fff; box-shadow: 0 6px 18px rgba(17,24,39,.04); }
+    th, td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: .94rem; }
+    th { background: var(--soft); color: #344054; font-weight: 800; }
     tr:last-child td { border-bottom: 0; }
-
     code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-
-    pre.code, pre.api {
-      margin: 0;
-      overflow-x: auto;
-      padding: 18px;
-      border-radius: 8px;
-      background: #101828;
-      color: #eef2ff;
-      font-size: 0.88rem;
-      line-height: 1.55;
-    }
-
+    pre.code, pre.api { margin: 0; overflow-x: auto; padding: 18px; border-radius: 8px; background: #101828; color: #eef2ff; font-size: .86rem; line-height: 1.55; }
     .code-caption { margin: 0 0 8px; color: #344054; font-weight: 800; }
-
-    .callout {
-      padding: 16px 18px;
-      border-left: 5px solid var(--red);
-      border-radius: 8px;
-      background: #fff5f5;
-      color: #4b1d1d;
-    }
-
+    .callout { padding: 16px 18px; border-left: 5px solid var(--red); border-radius: 8px; background: #fff5f5; color: #4b1d1d; }
     .callout strong { display: block; margin-bottom: 6px; }
-    footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.92rem; }
-
-    @media (max-width: 880px) {
-      .hero-grid, .grid.two, .grid.three { grid-template-columns: 1fr; }
-      main section { padding: 42px 0; }
-      nav { align-items: flex-start; flex-direction: column; }
-    }
+    footer { padding: 28px 0 40px; color: var(--muted); font-size: .92rem; }
+    @media (max-width: 880px) { .hero-grid, .grid.two, .grid.three { grid-template-columns: 1fr; } main section { padding: 42px 0; } nav { align-items: flex-start; flex-direction: column; } }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap">
-      <nav>
-        <a href="./">YouTube Top-K Architecture</a>
-        <span>Component 3: trust boundary for ranking signals</span>
-      </nav>
+      <nav><a href="./">YouTube Top-K Architecture</a><span>Component 3: trust boundary for ranking signals</span></nav>
       <div class="hero">
         <div class="eyebrow">Component 3</div>
         <h1>Validation, Deduplication, Fraud Filter</h1>
         <p class="lead">
-          Component 3 converts untrusted raw playback activity into trusted ranking signals.
-          It decides whether an event can affect hot top-k rankings, whether it should be rejected,
-          or whether it should be quarantined for later review.
+          Component 3 receives compacted view candidates, not every heartbeat. It produces exactly
+          one durable outcome per candidate and never updates per-video ranking counters directly.
         </p>
         <div class="hero-grid">
-          <div class="fact"><strong>Input</strong><span>RawWatchEvent from the event gateway.</span></div>
-          <div class="fact"><strong>Decision</strong><span>Accept, reject, quarantine, or route to backfill.</span></div>
-          <div class="fact"><strong>Output</strong><span>ValidViewEvent into Component 4.</span></div>
-          <div class="fact"><strong>Default</strong><span>If trust is uncertain, do not affect hot rankings.</span></div>
+          <div class="fact"><strong>Input</strong><span>ViewCandidateEvent or WatchSegmentEvent with rawEventRef.</span></div>
+          <div class="fact"><strong>Dedupe</strong><span>Event-id, view-credit, and watch-segment dedupe.</span></div>
+          <div class="fact"><strong>Publishing</strong><span>Outbox/idempotent publishing avoids dedupe swallowing failed publishes.</span></div>
+          <div class="fact"><strong>Default</strong><span>If trust is uncertain, quarantine rather than affect hot rankings.</span></div>
         </div>
       </div>
     </div>
@@ -225,63 +87,50 @@
   <main>
     <section>
       <div class="wrap">
-        <h2>1. High-Level System Interactions</h2>
-        <p class="section-lead">
-          Component 3 sits between the gateway and the durable event stream. It uses short-lived
-          state stores and metadata services, then emits separate streams for valid, rejected,
-          suspicious, and late events.
-        </p>
+        <h2>1. Corrected System Interactions</h2>
+        <p class="section-lead">Raw durability and compaction happen before Component 3. Component 3 emits valid, rejected, suspicious, or late outcomes into Component 4 topics.</p>
         <div class="diagram-shell">
-          <div class="diagram-title"><span class="dot"></span>Where Component 3 Sits</div>
+          <div class="diagram-title"><span class="dot"></span>Where Component 3 Sits After Critique</div>
           <pre class="mermaid">
 flowchart LR
-  clients[Playback Clients]
-  gateway[Component 2: Watch Event Gateway]
+  gateway[Component 2: Gateway]
+  raw[(raw.watch_events)]
+  compactor[Candidate Compactor]
 
-  subgraph c3[Component 3: Validation / Dedup / Fraud]
-    schema[Schema Validator]
-    identity[Auth + Session Validator]
+  subgraph c3[Component 3]
+    schema[Schema + Envelope Validator]
     time[Event-Time Validator]
-    dedupe[Deduplicator]
-    view[Valid-View Classifier]
-    fraud[Fraud + Rate Filter]
+    trust[Session Trust]
+    dedupe[Multi-Layer Dedupe]
+    view[Valid-View + Watch-Time Classifier]
+    fraud[Cheap Fraud + Rate Rules]
     policy[Policy Gate]
-    router[Decision Router]
+    outbox[Durable Outcome Outbox]
   end
 
-  subgraph state[Hot State + Reference Data]
-    dedupeCache[(Dedup TTL Cache)]
-    sessionStore[(Session State)]
-    abuseStore[(Abuse Counters)]
-    policyStore[(Video Policy Cache)]
+  subgraph state[State And Reference Data]
+    dedupeStore[(Dedupe State)]
+    sessionStore[(Session Trust Cache)]
+    abuseCounters[(Salted Abuse Counters)]
+    policyCache[(Policy Cache)]
   end
 
-  subgraph c4[Component 4: Event Stream]
+  subgraph topics[Component 4 Topics]
     valid[(valid.view_events)]
     rejected[(rejected.watch_events)]
     suspicious[(suspicious.watch_events)]
     late[(late.backfill_events)]
   end
 
-  clients --> gateway --> schema --> identity --> time --> dedupe --> view --> fraud --> policy --> router
-  dedupe <--> dedupeCache
-  identity <--> sessionStore
-  fraud <--> abuseStore
-  policy <--> policyStore
-
-  router -->|trusted ranking signal| valid
-  router -->|bad or malformed| rejected
-  router -->|uncertain or risky| suspicious
-  router -->|too late for hot window| late
-
-  classDef c3Node fill:#eff6ff,stroke:#1d4ed8,color:#111827
-  classDef stateNode fill:#ecfdf5,stroke:#047857,color:#111827
-  classDef streamNode fill:#f5f3ff,stroke:#6d28d9,color:#111827
-  classDef edgeNode fill:#fff7ed,stroke:#b45309,color:#111827
-  class schema,identity,time,dedupe,view,fraud,policy,router c3Node
-  class dedupeCache,sessionStore,abuseStore,policyStore stateNode
-  class valid,rejected,suspicious,late streamNode
-  class clients,gateway edgeNode
+  gateway --> raw --> compactor --> schema --> time --> trust --> dedupe --> view --> fraud --> policy --> outbox
+  trust <--> sessionStore
+  dedupe <--> dedupeStore
+  fraud <--> abuseCounters
+  policy <--> policyCache
+  outbox --> valid
+  outbox --> rejected
+  outbox --> suspicious
+  outbox --> late
           </pre>
         </div>
       </div>
@@ -289,53 +138,47 @@ flowchart LR
 
     <section class="alt">
       <div class="wrap">
-        <h2>2. Internal Node Pipeline</h2>
-        <p class="section-lead">
-          These are the concrete nodes inside Component 3. Each node has a narrow responsibility
-          so we can measure, scale, and fail it independently.
-        </p>
+        <h2>2. Internal Decision Pipeline</h2>
+        <p class="section-lead">The old single event-id dedupe is replaced with distinct dedupe gates for transport retry, valid-view credit, and watch-time segments.</p>
         <div class="diagram-shell">
-          <div class="diagram-title"><span class="dot"></span>Internal Nodes And Decisions</div>
+          <div class="diagram-title"><span class="dot"></span>Decision Nodes</div>
           <pre class="mermaid">
 flowchart TD
-  raw[RawWatchEvent]
+  in[ViewCandidateEvent]
   schema{Schema valid?}
-  auth{Client/session trusted?}
   clock{Event time usable?}
-  dup{Duplicate?}
-  view{Counts as valid view?}
+  session{Session trusted?}
+  eventDup{Duplicate event id?}
+  viewDup{Duplicate view credit?}
+  segmentDup{Duplicate watch segment?}
+  watch{Watch time plausible?}
   fraud{Fraud risk acceptable?}
   policy{Video rankable?}
-  accept[Emit ValidViewEvent]
-  reject[Emit RejectedWatchEvent]
-  suspicious[Emit SuspiciousWatchEvent]
-  backfill[Emit LateBackfillEvent]
+  accept[ValidViewEvent]
+  reject[RejectedWatchEvent]
+  quarantine[SuspiciousWatchEvent]
+  late[LateBackfillEvent]
 
-  raw --> schema
+  in --> schema
   schema -- no --> reject
-  schema -- yes --> auth
-  auth -- no --> suspicious
-  auth -- yes --> clock
-  clock -- too old --> backfill
-  clock -- future or bad --> reject
-  clock -- acceptable --> dup
-  dup -- yes --> reject
-  dup -- no --> view
-  view -- no --> reject
-  view -- yes --> fraud
-  fraud -- high risk --> suspicious
-  fraud -- acceptable --> policy
-  policy -- no --> reject
-  policy -- yes --> accept
-
-  classDef ok fill:#ecfdf5,stroke:#047857,color:#111827
-  classDef bad fill:#fff5f5,stroke:#c81e1e,color:#111827
-  classDef warn fill:#fff7ed,stroke:#b45309,color:#111827
-  classDef node fill:#eff6ff,stroke:#1d4ed8,color:#111827
-  class raw,schema,auth,clock,dup,view,fraud,policy node
-  class accept ok
-  class reject bad
-  class suspicious,backfill warn
+  schema -- yes --> clock
+  clock -- late within backfill horizon --> late
+  clock -- future or too old --> reject
+  clock -- acceptable --> session
+  session -- unavailable or unknown --> quarantine
+  session -- trusted --> eventDup
+  eventDup -- yes --> reject
+  eventDup -- no --> viewDup
+  viewDup -- duplicate --> reject
+  viewDup -- new credit --> segmentDup
+  segmentDup -- duplicate segment --> reject
+  segmentDup -- new segment --> watch
+  watch -- impossible --> quarantine
+  watch -- plausible --> fraud
+  fraud -- high risk or unavailable --> quarantine
+  fraud -- allow --> policy
+  policy -- unavailable or not rankable --> reject
+  policy -- rankable --> accept
           </pre>
         </div>
       </div>
@@ -343,106 +186,91 @@ flowchart TD
 
     <section>
       <div class="wrap">
-        <h2>3. Java 21 Implementation Sketch</h2>
-        <p class="section-lead">
-          This is the production-shaped code boundary for Component 3. The first implementation can
-          keep the stores in-memory for tests, but the interfaces map directly to Redis/Valkey,
-          session state, policy metadata, and Kafka producers.
-        </p>
+        <h2>3. Java Code Boundary</h2>
+        <p class="section-lead">These snippets are intended as separate Java 21 files. The important corrections are typed reason codes, versioned config, multi-layer dedupe, typed dependency states, and outbox publishing.</p>
         <div class="grid two">
           <div>
-            <p class="code-caption">Event models and decisions</p>
+            <p class="code-caption">File: ViewCandidateEvent.java</p>
             <pre class="code"><code>package com.systemdesign.youtube.topk.validation;
 
 import java.time.Instant;
-import java.util.Map;
 
-public record RawWatchEvent(
+public record ViewCandidateEvent(
     String eventId,
+    String traceId,
+    String rawEventRef,
     String videoId,
-    String sessionId,
-    String userId,
+    String sessionIdHash,
+    String userOrDeviceHash,
+    Instant playbackStartTime,
     Instant eventTime,
     Instant ingestTime,
-    long watchMs,
+    long segmentStartMs,
+    long segmentEndMs,
+    long reportedWatchMs,
+    long videoDurationMs,
     String country,
     String device,
-    Map&lt;String, String&gt; attributes
+    String sourceRegion,
+    String schemaVersion
 ) {}
 
 public record ValidViewEvent(
     String eventId,
+    String viewCreditId,
+    String watchSegmentId,
+    String traceId,
+    String rawEventRef,
     String videoId,
     Instant eventTime,
+    Instant ingestTime,
     String country,
+    String device,
+    String sourceRegion,
     long validViews,
     long watchTimeMs,
     String validationVersion,
-    String fraudDecision
-) {}
-
-public enum DecisionType {
-  ACCEPT,
-  REJECT,
-  QUARANTINE,
-  BACKFILL
-}
-
-public record ValidationDecision(
-    DecisionType type,
-    String reason,
-    ValidViewEvent validEvent
-) {
-  static ValidationDecision accept(ValidViewEvent event) {
-    return new ValidationDecision(DecisionType.ACCEPT, "accepted", event);
-  }
-
-  static ValidationDecision reject(String reason) {
-    return new ValidationDecision(DecisionType.REJECT, reason, null);
-  }
-
-  static ValidationDecision quarantine(String reason) {
-    return new ValidationDecision(DecisionType.QUARANTINE, reason, null);
-  }
-
-  static ValidationDecision backfill(String reason) {
-    return new ValidationDecision(DecisionType.BACKFILL, reason, null);
-  }
-}</code></pre>
+    String ruleConfigVersion,
+    String fraudModelVersion
+) {}</code></pre>
           </div>
           <div>
-            <p class="code-caption">External dependencies as interfaces</p>
+            <p class="code-caption">File: DecisionTypes.java</p>
             <pre class="code"><code>package com.systemdesign.youtube.topk.validation;
 
-import java.time.Duration;
-
-public interface DedupeStore {
-  /** Returns true only when the key was newly inserted. */
-  boolean putIfAbsent(String key, Duration ttl);
+public enum OutcomeType {
+  VALID,
+  REJECTED,
+  SUSPICIOUS,
+  LATE_BACKFILL
 }
 
-public interface SessionTrustStore {
-  SessionTrust lookup(String sessionId, String userId);
+public enum ReasonCode {
+  ACCEPTED,
+  MISSING_FIELD,
+  INVALID_DEVICE,
+  EVENT_TIME_FUTURE,
+  EVENT_TOO_OLD,
+  LATE_FOR_HOT_RANKING,
+  UNTRUSTED_SESSION,
+  SESSION_UNAVAILABLE,
+  DUPLICATE_EVENT_ID,
+  DUPLICATE_VIEW_CREDIT,
+  DUPLICATE_WATCH_SEGMENT,
+  IMPOSSIBLE_WATCH_TIME,
+  FRAUD_RISK,
+  FRAUD_UNAVAILABLE,
+  POLICY_UNAVAILABLE,
+  VIDEO_NOT_RANKABLE,
+  OUTBOX_UNAVAILABLE
 }
 
-public interface FraudFilter {
-  FraudDecision evaluate(RawWatchEvent event);
-}
-
-public interface PolicyStore {
-  VideoPolicy lookupVideoPolicy(String videoId);
-}
-
-public interface ValidationPublisher {
-  void publishValid(ValidViewEvent event);
-  void publishRejected(RawWatchEvent event, String reason);
-  void publishSuspicious(RawWatchEvent event, String reason);
-  void publishLate(RawWatchEvent event, String reason);
-}
-
-public record SessionTrust(boolean trusted, String reason) {}
-public record FraudDecision(boolean allowed, String reason) {}
-public record VideoPolicy(boolean rankable, String reason) {}</code></pre>
+public record ValidationOutcome(
+    OutcomeType type,
+    ReasonCode reason,
+    ValidViewEvent validEvent,
+    ViewCandidateEvent originalEvent
+) {}</code></pre>
           </div>
         </div>
       </div>
@@ -450,296 +278,261 @@ public record VideoPolicy(boolean rankable, String reason) {}</code></pre>
 
     <section class="alt">
       <div class="wrap">
-        <h2>4. Component 3 Processor Code</h2>
-        <p class="section-lead">
-          The processor is intentionally boring: validate in order, fail closed for hot rankings,
-          and publish exactly one outcome stream per raw event. Heavy fraud review and correction
-          happen asynchronously.
-        </p>
+        <h2>4. Interfaces For Production Dependencies</h2>
+        <p class="section-lead">Dependencies return typed unavailable/unknown states instead of throwing their way into accidental fail-open behavior.</p>
+        <div class="grid two">
+          <div>
+            <p class="code-caption">File: Stores.java</p>
+            <pre class="code"><code>package com.systemdesign.youtube.topk.validation;
+
+import java.time.Duration;
+
+public enum CheckStatus { ALLOW, DENY, UNKNOWN, UNAVAILABLE }
+public enum ReservationStatus { ACQUIRED, DUPLICATE, IN_PROGRESS, UNAVAILABLE }
+
+public record CheckResult(CheckStatus status, ReasonCode reason) {}
+public record Reservation(ReservationStatus status, ReasonCode reason) {}
+
+public interface DedupeStore {
+  Reservation reserve(String key, Duration ttl);
+}
+
+public interface SessionTrustStore {
+  CheckResult checkTrusted(String sessionIdHash, String userOrDeviceHash);
+}
+
+public interface FraudGate {
+  CheckResult check(ViewCandidateEvent event);
+  String modelVersion();
+}
+
+public interface PolicyStore {
+  CheckResult checkRankable(String videoId);
+}
+
+public interface ValidationOutbox {
+  void putIfAbsent(String idempotencyKey, ValidationOutcome outcome);
+}</code></pre>
+          </div>
+          <div>
+            <p class="code-caption">File: ValidationConfig.java</p>
+            <pre class="code"><code>package com.systemdesign.youtube.topk.validation;
+
+import java.time.Duration;
+import java.util.Set;
+
+public record ValidationConfig(
+    String validationVersion,
+    String ruleConfigVersion,
+    Duration eventIdTtl,
+    Duration viewCreditTtl,
+    Duration watchSegmentTtl,
+    Duration maxFutureSkew,
+    Duration hotPathAllowedLateness,
+    Duration backfillAllowedLateness,
+    long minValidWatchMs,
+    long maxWatchMsSkew,
+    Set&lt;String&gt; allowedDevices
+) {}
+
+// Example config is rollout-controlled, not hardcoded:
+// eventIdTtl=30m, viewCreditTtl=24h, watchSegmentTtl=24h
+// hotPathAllowedLateness=10m, backfillAllowedLateness=24h</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>5. Processor Sketch With Safe Publishing</h2>
+        <p class="section-lead">The processor writes an outcome into a durable outbox. A separate publisher drains the outbox into Component 4 with idempotent producer keys. Dedupe reservations are leases, not permanent blind seen-bits.</p>
         <pre class="code"><code>package com.systemdesign.youtube.topk.validation;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Set;
 
 public final class Component3Validator {
-  private static final String VALIDATION_VERSION = "valid-view-v1";
-  private static final Duration EVENT_DEDUPE_TTL = Duration.ofMinutes(30);
-  private static final Duration MAX_FUTURE_SKEW = Duration.ofSeconds(30);
-  private static final Duration HOT_PATH_ALLOWED_LATENESS = Duration.ofMinutes(10);
-  private static final Duration BACKFILL_ALLOWED_LATENESS = Duration.ofHours(24);
-  private static final long MIN_VALID_WATCH_MS = 30_000;
-  private static final Set&lt;String&gt; ALLOWED_DEVICES = Set.of("web", "mobile", "tv", "embed");
-
   private final DedupeStore dedupeStore;
   private final SessionTrustStore sessionTrustStore;
-  private final FraudFilter fraudFilter;
+  private final FraudGate fraudGate;
   private final PolicyStore policyStore;
-  private final ValidationPublisher publisher;
+  private final ValidationOutbox outbox;
+  private final ValidationConfig config;
 
   public Component3Validator(
       DedupeStore dedupeStore,
       SessionTrustStore sessionTrustStore,
-      FraudFilter fraudFilter,
+      FraudGate fraudGate,
       PolicyStore policyStore,
-      ValidationPublisher publisher
+      ValidationOutbox outbox,
+      ValidationConfig config
   ) {
     this.dedupeStore = dedupeStore;
     this.sessionTrustStore = sessionTrustStore;
-    this.fraudFilter = fraudFilter;
+    this.fraudGate = fraudGate;
     this.policyStore = policyStore;
-    this.publisher = publisher;
+    this.outbox = outbox;
+    this.config = config;
   }
 
-  public ValidationDecision validateAndPublish(RawWatchEvent event, Instant now) {
-    ValidationDecision decision = validate(event, now);
-
-    switch (decision.type()) {
-      case ACCEPT -&gt; publisher.publishValid(decision.validEvent());
-      case REJECT -&gt; publisher.publishRejected(event, decision.reason());
-      case QUARANTINE -&gt; publisher.publishSuspicious(event, decision.reason());
-      case BACKFILL -&gt; publisher.publishLate(event, decision.reason());
-    }
-
-    return decision;
+  public ValidationOutcome validateAndEnqueue(ViewCandidateEvent event, Instant now) {
+    ValidationOutcome outcome = validate(event, now);
+    String idempotencyKey = event == null ? "null-event" : "outcome:" + event.eventId();
+    outbox.putIfAbsent(idempotencyKey, outcome);
+    return outcome;
   }
 
-  public ValidationDecision validate(RawWatchEvent event, Instant now) {
-    ValidationDecision schema = validateSchema(event);
-    if (schema.type() != DecisionType.ACCEPT) return schema;
+  public ValidationOutcome validate(ViewCandidateEvent event, Instant now) {
+    ValidationOutcome schema = validateSchema(event);
+    if (schema != null) return schema;
 
-    ValidationDecision time = validateEventTime(event, now);
-    if (time.type() != DecisionType.ACCEPT) return time;
+    ValidationOutcome time = validateEventTime(event, now);
+    if (time != null) return time;
 
-    SessionTrust trust = sessionTrustStore.lookup(event.sessionId(), event.userId());
-    if (!trust.trusted()) {
-      return ValidationDecision.quarantine("untrusted_session:" + trust.reason());
+    CheckResult trust = sessionTrustStore.checkTrusted(event.sessionIdHash(), event.userOrDeviceHash());
+    if (trust.status() == CheckStatus.UNAVAILABLE || trust.status() == CheckStatus.UNKNOWN) {
+      return suspicious(event, ReasonCode.SESSION_UNAVAILABLE);
     }
+    if (trust.status() == CheckStatus.DENY) return suspicious(event, ReasonCode.UNTRUSTED_SESSION);
 
-    String dedupeKey = "dedupe:event:" + event.eventId();
-    boolean firstSeen = dedupeStore.putIfAbsent(dedupeKey, EVENT_DEDUPE_TTL);
-    if (!firstSeen) {
-      return ValidationDecision.reject("duplicate_event");
-    }
+    Reservation eventId = dedupeStore.reserve("event:" + event.eventId(), config.eventIdTtl());
+    if (eventId.status() == ReservationStatus.UNAVAILABLE) return suspicious(event, eventId.reason());
+    if (eventId.status() == ReservationStatus.DUPLICATE) return rejected(event, ReasonCode.DUPLICATE_EVENT_ID);
 
-    if (event.watchMs() &lt; MIN_VALID_WATCH_MS) {
-      return ValidationDecision.reject("watch_too_short");
-    }
+    String viewCreditKey = viewCreditKey(event);
+    Reservation viewCredit = dedupeStore.reserve(viewCreditKey, config.viewCreditTtl());
+    if (viewCredit.status() == ReservationStatus.UNAVAILABLE) return suspicious(event, viewCredit.reason());
+    if (viewCredit.status() == ReservationStatus.DUPLICATE) return rejected(event, ReasonCode.DUPLICATE_VIEW_CREDIT);
 
-    FraudDecision fraud = fraudFilter.evaluate(event);
-    if (!fraud.allowed()) {
-      return ValidationDecision.quarantine("fraud_risk:" + fraud.reason());
-    }
+    String segmentKey = watchSegmentKey(event);
+    Reservation segment = dedupeStore.reserve(segmentKey, config.watchSegmentTtl());
+    if (segment.status() == ReservationStatus.UNAVAILABLE) return suspicious(event, segment.reason());
+    if (segment.status() == ReservationStatus.DUPLICATE) return rejected(event, ReasonCode.DUPLICATE_WATCH_SEGMENT);
 
-    VideoPolicy policy = policyStore.lookupVideoPolicy(event.videoId());
-    if (!policy.rankable()) {
-      return ValidationDecision.reject("not_rankable:" + policy.reason());
+    long boundedWatchMs = boundedWatchMs(event);
+    if (boundedWatchMs &lt; config.minValidWatchMs()) return rejected(event, ReasonCode.IMPOSSIBLE_WATCH_TIME);
+
+    CheckResult fraud = fraudGate.check(event);
+    if (fraud.status() == CheckStatus.UNAVAILABLE || fraud.status() == CheckStatus.UNKNOWN) {
+      return suspicious(event, ReasonCode.FRAUD_UNAVAILABLE);
     }
+    if (fraud.status() == CheckStatus.DENY) return suspicious(event, ReasonCode.FRAUD_RISK);
+
+    CheckResult policy = policyStore.checkRankable(event.videoId());
+    if (policy.status() == CheckStatus.UNAVAILABLE || policy.status() == CheckStatus.UNKNOWN) {
+      return rejected(event, ReasonCode.POLICY_UNAVAILABLE);
+    }
+    if (policy.status() == CheckStatus.DENY) return rejected(event, ReasonCode.VIDEO_NOT_RANKABLE);
 
     ValidViewEvent valid = new ValidViewEvent(
         event.eventId(),
+        viewCreditKey,
+        segmentKey,
+        event.traceId(),
+        event.rawEventRef(),
         event.videoId(),
         event.eventTime(),
+        event.ingestTime(),
         event.country(),
+        event.device(),
+        event.sourceRegion(),
         1L,
-        event.watchMs(),
-        VALIDATION_VERSION,
-        fraud.reason()
+        boundedWatchMs,
+        config.validationVersion(),
+        config.ruleConfigVersion(),
+        fraudGate.modelVersion()
     );
 
-    return ValidationDecision.accept(valid);
+    return new ValidationOutcome(OutcomeType.VALID, ReasonCode.ACCEPTED, valid, event);
   }
 
-  private ValidationDecision validateSchema(RawWatchEvent event) {
-    if (event == null) return ValidationDecision.reject("null_event");
-    if (isBlank(event.eventId())) return ValidationDecision.reject("missing_event_id");
-    if (isBlank(event.videoId())) return ValidationDecision.reject("missing_video_id");
-    if (isBlank(event.sessionId())) return ValidationDecision.reject("missing_session_id");
-    if (event.eventTime() == null) return ValidationDecision.reject("missing_event_time");
-    if (event.ingestTime() == null) return ValidationDecision.reject("missing_ingest_time");
-    if (event.watchMs() &lt; 0) return ValidationDecision.reject("negative_watch_ms");
-    if (isBlank(event.country())) return ValidationDecision.reject("missing_country");
-    if (!ALLOWED_DEVICES.contains(event.device())) return ValidationDecision.reject("invalid_device");
-    return ValidationDecision.accept(null);
+  private ValidationOutcome validateSchema(ViewCandidateEvent event) {
+    if (event == null) return new ValidationOutcome(OutcomeType.REJECTED, ReasonCode.MISSING_FIELD, null, null);
+    if (blank(event.eventId()) || blank(event.videoId()) || blank(event.sessionIdHash())) return rejected(event, ReasonCode.MISSING_FIELD);
+    if (blank(event.userOrDeviceHash()) || event.eventTime() == null || event.ingestTime() == null) return rejected(event, ReasonCode.MISSING_FIELD);
+    if (!config.allowedDevices().contains(event.device())) return rejected(event, ReasonCode.INVALID_DEVICE);
+    if (event.segmentStartMs() &lt; 0 || event.segmentEndMs() &lt; event.segmentStartMs()) return rejected(event, ReasonCode.IMPOSSIBLE_WATCH_TIME);
+    return null;
   }
 
-  private ValidationDecision validateEventTime(RawWatchEvent event, Instant now) {
-    if (event.eventTime().isAfter(now.plus(MAX_FUTURE_SKEW))) {
-      return ValidationDecision.reject("event_time_too_far_in_future");
-    }
+  private ValidationOutcome validateEventTime(ViewCandidateEvent event, Instant now) {
+    if (event.ingestTime().isAfter(now.plus(config.maxFutureSkew()))) return rejected(event, ReasonCode.EVENT_TIME_FUTURE);
+    if (event.eventTime().isAfter(event.ingestTime().plus(config.maxFutureSkew()))) return rejected(event, ReasonCode.EVENT_TIME_FUTURE);
 
-    Duration lateness = Duration.between(event.eventTime(), now);
-    if (lateness.compareTo(BACKFILL_ALLOWED_LATENESS) &gt; 0) {
-      return ValidationDecision.reject("event_too_old");
-    }
-
-    if (lateness.compareTo(HOT_PATH_ALLOWED_LATENESS) &gt; 0) {
-      return ValidationDecision.backfill("late_for_hot_ranking");
-    }
-
-    return ValidationDecision.accept(null);
+    Duration lateness = Duration.between(event.eventTime(), event.ingestTime());
+    if (lateness.compareTo(config.backfillAllowedLateness()) &gt; 0) return rejected(event, ReasonCode.EVENT_TOO_OLD);
+    if (lateness.compareTo(config.hotPathAllowedLateness()) &gt; 0) return late(event, ReasonCode.LATE_FOR_HOT_RANKING);
+    return null;
   }
 
-  private static boolean isBlank(String value) {
+  private long boundedWatchMs(ViewCandidateEvent event) {
+    long segmentMs = event.segmentEndMs() - event.segmentStartMs();
+    long maxBySegment = segmentMs + config.maxWatchMsSkew();
+    long maxByVideo = Math.max(0L, event.videoDurationMs() - event.segmentStartMs());
+    return Math.min(event.reportedWatchMs(), Math.min(maxBySegment, maxByVideo));
+  }
+
+  private String viewCreditKey(ViewCandidateEvent event) {
+    long startBucketSeconds = event.playbackStartTime().getEpochSecond() / 300;
+    return "view:" + event.userOrDeviceHash() + ':' + event.videoId() + ':' + event.sessionIdHash() + ':' + startBucketSeconds;
+  }
+
+  private String watchSegmentKey(ViewCandidateEvent event) {
+    return "segment:" + event.sessionIdHash() + ':' + event.videoId() + ':' + event.segmentStartMs() + ':' + event.segmentEndMs();
+  }
+
+  private static ValidationOutcome rejected(ViewCandidateEvent event, ReasonCode reason) {
+    return new ValidationOutcome(OutcomeType.REJECTED, reason, null, event);
+  }
+
+  private static ValidationOutcome suspicious(ViewCandidateEvent event, ReasonCode reason) {
+    return new ValidationOutcome(OutcomeType.SUSPICIOUS, reason, null, event);
+  }
+
+  private static ValidationOutcome late(ViewCandidateEvent event, ReasonCode reason) {
+    return new ValidationOutcome(OutcomeType.LATE_BACKFILL, reason, null, event);
+  }
+
+  private static boolean blank(String value) {
     return value == null || value.isBlank();
   }
 }</code></pre>
       </div>
     </section>
 
-    <section>
-      <div class="wrap">
-        <h2>5. State And Hot-Node Strategy</h2>
-        <p class="section-lead">
-          Event-id dedupe distributes well because event IDs are random. Hot-node risk comes from
-          low-cardinality or viral keys such as IP, video ID, country, and creator. Component 3
-          avoids direct per-video counter writes and salts hot abuse counters.
-        </p>
-        <div class="diagram-shell">
-          <div class="diagram-title"><span class="dot"></span>State Stores And Sharding</div>
-          <pre class="mermaid">
-flowchart LR
-  workerA[Validation Worker A]
-  workerB[Validation Worker B]
-  workerN[Validation Worker N]
-
-  localA[(Local Caffeine Cache)]
-  localB[(Local Caffeine Cache)]
-  localN[(Local Caffeine Cache)]
-
-  subgraph redis[Regional Redis / Valkey Cluster]
-    shard1[(Shard 1)]
-    shard2[(Shard 2)]
-    shard3[(Shard 3)]
-    shardN[(Shard N)]
-  end
-
-  policy[(Policy Metadata Cache)]
-  session[(Session State Store)]
-  valid[(valid.view_events)]
-
-  workerA --> localA
-  workerB --> localB
-  workerN --> localN
-
-  localA -->|miss: SET eventId NX EX| shard1
-  localB -->|miss: hash eventId| shard2
-  localN -->|miss: hash eventId| shardN
-
-  workerA --> session
-  workerB --> session
-  workerN --> session
-
-  workerA --> policy
-  workerB --> policy
-  workerN --> policy
-
-  workerA -->|no video counters here| valid
-  workerB -->|emit signal only| valid
-  workerN -->|aggregation is downstream| valid
-
-  classDef worker fill:#eff6ff,stroke:#1d4ed8,color:#111827
-  classDef store fill:#ecfdf5,stroke:#047857,color:#111827
-  classDef stream fill:#f5f3ff,stroke:#6d28d9,color:#111827
-  class workerA,workerB,workerN worker
-  class localA,localB,localN,shard1,shard2,shard3,shardN,policy,session store
-  class valid stream
-          </pre>
-        </div>
-      </div>
-    </section>
-
     <section class="alt">
       <div class="wrap">
-        <h2>6. Estimates For Component 3</h2>
-        <p class="section-lead">
-          These estimates use budget-conscious assumptions: Java workers at 8 vCPU / 32 GB,
-          roughly 10k safe events/sec per worker, 30-minute event-id dedupe TTL, and local worker
-          dedupe before Redis/Valkey. Numbers are planning targets, not benchmark results.
-        </p>
+        <h2>6. Capacity Estimates</h2>
+        <p class="section-lead">These estimates define the event as a compacted view candidate or watch segment, not a raw heartbeat. Use sustained EPS for cache sizing, not peak alone.</p>
         <table>
-          <thead>
-            <tr>
-              <th>Target Tier</th>
-              <th>Peak Raw EPS</th>
-              <th>Workers</th>
-              <th>Event Dedupe Keys</th>
-              <th>Primary Cache</th>
-              <th>Valid Output</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Tier</th><th>Peak EPS</th><th>Sustained EPS</th><th>Workers</th><th>Cache Ops/sec</th><th>Provisioned Cache</th><th>Cost Note</th></tr></thead>
           <tbody>
-            <tr>
-              <td>MVP production</td>
-              <td>25k/sec</td>
-              <td>4-6</td>
-              <td>45M keys at 30m TTL</td>
-              <td>10-30 GB</td>
-              <td>15k-20k/sec</td>
-              <td>Single region or two small active regions; simple rules first.</td>
-            </tr>
-            <tr>
-              <td>Serious V1</td>
-              <td>100k/sec</td>
-              <td>15-25</td>
-              <td>180M keys at 30m TTL</td>
-              <td>60-150 GB</td>
-              <td>60k-80k/sec</td>
-              <td>Regional Redis/Valkey, local Caffeine dedupe, separate rejected streams.</td>
-            </tr>
-            <tr>
-              <td>Large scale</td>
-              <td>1M/sec</td>
-              <td>130-180</td>
-              <td>1.8B keys at 30m TTL</td>
-              <td>600 GB-1.5 TB</td>
-              <td>600k-800k/sec</td>
-              <td>50-100 cache shards; hot-key salting for abuse counters; no per-video writes.</td>
-            </tr>
+            <tr><td>MVP production</td><td>25k</td><td>5k-10k</td><td>4-6</td><td>15k-30k</td><td>30-80 GB</td><td>One or two regions; simple rules and local dedupe first.</td></tr>
+            <tr><td>Serious V1</td><td>100k</td><td>20k-40k</td><td>15-30</td><td>60k-120k</td><td>100-300 GB</td><td>Budget-conscious global target.</td></tr>
+            <tr><td>Large scale</td><td>1M</td><td>200k-400k</td><td>130-220</td><td>600k-1.2M</td><td>0.6-2 TB</td><td>Short TTLs, regional clusters, many shards.</td></tr>
+            <tr><td>Very high sustained</td><td>1M+</td><td>1M</td><td>300+</td><td>3M+</td><td>6-8 TB possible</td><td>Only if TTL is long and multiple dedupe/state layers are exact.</td></tr>
           </tbody>
         </table>
         <div style="height:18px"></div>
         <table>
-          <thead>
-            <tr>
-              <th>Per-Event Operation</th>
-              <th>Hot Path Cost</th>
-              <th>Expected Storage/Network</th>
-              <th>Scaling Control</th>
-            </tr>
-          </thead>
+          <thead><tr><th>State Type</th><th>Key Formula</th><th>TTL</th><th>Sizing Driver</th><th>Hot-Key Control</th></tr></thead>
           <tbody>
-            <tr>
-              <td>Schema/time checks</td>
-              <td>CPU only</td>
-              <td>No external storage</td>
-              <td>Keep deterministic and allocation-light.</td>
-            </tr>
-            <tr>
-              <td>Session trust lookup</td>
-              <td>0-1 cache lookup</td>
-              <td>Short local cache, fallback remote state</td>
-              <td>Fail to quarantine if trust cannot be proven.</td>
-            </tr>
-            <tr>
-              <td>Event dedupe</td>
-              <td>Local cache then SET NX EX</td>
-              <td>About 150-250 bytes/key after cache overhead</td>
-              <td>Short TTL, regional sharding, optional probabilistic filters.</td>
-            </tr>
-            <tr>
-              <td>Fraud/rate rules</td>
-              <td>Mostly local rules, salted counters for hot keys</td>
-              <td>Abuse counters use shorter TTL than event dedupe</td>
-              <td>Do not run heavy ML inference synchronously.</td>
-            </tr>
-            <tr>
-              <td>Produce output stream</td>
-              <td>1 publish per raw event outcome</td>
-              <td>Valid event roughly 250-400 bytes with binary encoding</td>
-              <td>Backpressure when Component 4 is unavailable.</td>
-            </tr>
+            <tr><td>Event-id dedupe</td><td><code>sustained_eps * ttl_seconds</code></td><td>15-30m</td><td>Transport retry horizon</td><td>Random event IDs distribute well.</td></tr>
+            <tr><td>View-credit dedupe</td><td><code>unique view candidates * ttl</code></td><td>12-24h</td><td>One view credit per session/video threshold</td><td>Hash by user/device and video; no cluster hash tags.</td></tr>
+            <tr><td>Watch-segment dedupe</td><td><code>segments * ttl</code></td><td>12-24h</td><td>Duplicate watch-time increments</td><td>Bound segment cardinality through compaction.</td></tr>
+            <tr><td>Abuse counters</td><td><code>ip/device/user/video buckets</code></td><td>1-60m</td><td>Fraud/rate rules</td><td>Salt keys above 5k-10k writes/sec.</td></tr>
+            <tr><td>Session trust cache</td><td><code>active sessions</code></td><td>5-60m</td><td>Auth/session lookup avoidance</td><td>Regional cache and local worker cache.</td></tr>
+          </tbody>
+        </table>
+        <div style="height:18px"></div>
+        <table>
+          <thead><tr><th>Formula</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><code>keys = sustained_eps * ttl_seconds</code></td><td>100k sustained EPS with 30m TTL = 180M event-id keys.</td></tr>
+            <tr><td><code>primary_memory = keys * bytes_per_key</code></td><td>180M keys * 200B = 36 GB primary for event-id dedupe only.</td></tr>
+            <tr><td><code>provisioned = primary * replicas * headroom</code></td><td>36 GB * 2 replicas * 1.5 headroom = about 108 GB provisioned.</td></tr>
+            <tr><td><code>primary_shards = ops_per_sec / safe_ops_per_shard</code></td><td>3M ops/sec / 30k ops/sec = about 100 primary shards.</td></tr>
           </tbody>
         </table>
       </div>
@@ -747,27 +540,17 @@ flowchart LR
 
     <section>
       <div class="wrap">
-        <h2>7. Failure Behavior</h2>
-        <p class="section-lead">
-          The failure policy is conservative: if we cannot trust the event, it should not affect
-          hot rankings. Some failures degrade to cached/simple rules; others quarantine or reject.
-        </p>
+        <h2>7. Failure Behavior Matrix</h2>
+        <p class="section-lead">Fail-closed is not one global rule. Each dependency needs an explicit degraded-mode behavior.</p>
         <table>
-          <thead>
-            <tr>
-              <th>Node</th>
-              <th>Failure</th>
-              <th>Hot Ranking Behavior</th>
-              <th>Follow-Up</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Dependency</th><th>Failure</th><th>Hot Ranking Behavior</th><th>Reason Code</th></tr></thead>
           <tbody>
-            <tr><td>Schema validator</td><td>Bad schema or parser bug</td><td>Reject malformed events; canary rollback on rate shift</td><td>Dead-letter queue and schema version audit</td></tr>
-            <tr><td>Auth/session validator</td><td>Session store unavailable</td><td>Use short local cache; otherwise quarantine</td><td>Replay quarantined events if trust can be proven</td></tr>
-            <tr><td>Deduplicator</td><td>Redis shard hot or unavailable</td><td>Use local dedupe fallback; uncertain events quarantine</td><td>Scale shards, shorten TTL, or enable probabilistic filter</td></tr>
-            <tr><td>Fraud filter</td><td>Rules/model unavailable</td><td>Fall back to simple rules; quarantine high-risk traffic</td><td>Async review and correction snapshots</td></tr>
-            <tr><td>Policy gate</td><td>Policy metadata unavailable</td><td>Use cached policy; unknown videos do not rank</td><td>Refresh metadata and replay if needed</td></tr>
-            <tr><td>Valid-event producer</td><td>Component 4 unavailable</td><td>Backpressure intake; bounded buffering only</td><td>Do not silently drop accepted valid events</td></tr>
+            <tr><td>Session trust</td><td>Unavailable or unknown</td><td>Quarantine; do not rank</td><td><code>SESSION_UNAVAILABLE</code></td></tr>
+            <tr><td>Dedupe store</td><td>Unavailable</td><td>Use local short cache if available; otherwise quarantine</td><td><code>DUPLICATE_* or *_UNAVAILABLE</code></td></tr>
+            <tr><td>Fraud gate</td><td>Model unavailable</td><td>Fallback to simple rules; quarantine high-risk/unknown</td><td><code>FRAUD_UNAVAILABLE</code></td></tr>
+            <tr><td>Policy store</td><td>Unavailable</td><td>Reject from hot ranking; policy can replay later if allowed</td><td><code>POLICY_UNAVAILABLE</code></td></tr>
+            <tr><td>Outbox</td><td>Unavailable</td><td>Backpressure; do not silently drop accepted outcomes</td><td><code>OUTBOX_UNAVAILABLE</code></td></tr>
+            <tr><td>Audit stream only</td><td>Unavailable</td><td>Fail open after bounded retry if valid path is safe</td><td>Operational degraded mode</td></tr>
           </tbody>
         </table>
       </div>
@@ -776,26 +559,33 @@ flowchart LR
     <section class="alt">
       <div class="wrap">
         <h2>8. Event Contracts</h2>
-        <p class="section-lead">
-          Component 3 narrows many noisy playback events into a small set of explicit outputs for
-          Component 4 and audit paths.
-        </p>
+        <p class="section-lead">Component 3 consumes compacted candidates and emits versioned valid events. Raw heartbeat replay remains upstream in <code>raw.watch_events</code>.</p>
         <div class="grid two">
-          <pre class="api"><code>Input: RawWatchEvent
+          <pre class="api"><code>Input: ViewCandidateEvent
 {
   "eventId": "evt_123",
+  "traceId": "trace_abc",
+  "rawEventRef": "raw.watch_events:12:901233",
   "videoId": "abc123",
-  "sessionId": "s_789",
-  "userId": "u_456",
+  "sessionIdHash": "s_hash",
+  "userOrDeviceHash": "u_hash",
+  "playbackStartTime": "2026-06-07T11:59:10Z",
   "eventTime": "2026-06-07T12:00:00Z",
   "ingestTime": "2026-06-07T12:00:02Z",
-  "watchMs": 42000,
+  "segmentStartMs": 0,
+  "segmentEndMs": 42000,
+  "reportedWatchMs": 42000,
+  "videoDurationMs": 180000,
   "country": "US",
   "device": "mobile"
 }</code></pre>
           <pre class="api"><code>Output: ValidViewEvent
 {
   "eventId": "evt_123",
+  "viewCreditId": "view:u_hash:abc123:s_hash:5935798",
+  "watchSegmentId": "segment:s_hash:abc123:0:42000",
+  "traceId": "trace_abc",
+  "rawEventRef": "raw.watch_events:12:901233",
   "videoId": "abc123",
   "eventTime": "2026-06-07T12:00:00Z",
   "country": "US",
@@ -804,14 +594,15 @@ flowchart LR
     "watchTimeMs": 42000
   },
   "validationVersion": "valid-view-v1",
-  "fraudDecision": "allow"
+  "ruleConfigVersion": "rules-2026-06-07",
+  "fraudModelVersion": "fraud-hotpath-v3"
 }</code></pre>
         </div>
       </div>
     </section>
   </main>
 
-  <footer><div class="wrap">Component 3 visualization for the YouTube Sliding Top-K architecture.</div></footer>
+  <footer><div class="wrap">Component 3 visualization and production sketch. Updated with critique fixes: multi-layer dedupe, typed failures, outbox publishing, and split estimates.</div></footer>
 
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
