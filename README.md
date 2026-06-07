@@ -8,6 +8,10 @@ Architecture page:
 
 https://edisontrent17.github.io/System-Design/
 
+Component 3 visualization:
+
+https://edisontrent17.github.io/System-Design/component-3.html
+
 ## Core Idea
 
 The serving API should not compute top-k rankings from raw events. It should read materialized ranking snapshots produced by a streaming pipeline.
